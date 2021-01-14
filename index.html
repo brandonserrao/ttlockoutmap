@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>Testing Map for WiOutside</title>
+        
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+              integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+              crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+                 integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+                 crossorigin=""></script>
+        
+        <!-- jQuery-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+        
+        <!-- PapaParse -->
+        <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+        
+    </head>
+    
+    <body>
+        
+        <!-- Load in constants-->
+        <script type="text/javascript" src="constants.js"></script>
+        
+        <!-- Map container-->
+        <div id='mapid' style='width:600px; height: 400px'></div>
+        <!-- Map script-->
+        <script>
+            
+            //init map variable//
+            var mymap = L.map('mapid').setView([0,0], 2)
+            //add map layer the map via methods//
+            var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mymap);
+            
+            //Loading from Google Spreadsheet//adapting from the HandsOnDataViz version
+            $.ajax({
+                url: googleDocURL,
+                type: 'HEAD',
+                error: function() {console.log('ajax attempt to load data from google sheet failed')},
+                success: function() {
+                    
+                    if (typeof googleApiKey !== 'undefined' && googleApiKey){
+                        
+                        var parse = function(res) { //function to return a js array of dict objects each rep a sheet row
+                            return Papa.parse(Papa.unparse(res[0].values), {header: true} ).data;
+                        }
+                        
+                        var apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/'
+                        var spreadsheetId = googleDocURL.indexOf('/d/') > 0
+                        ? googleDocURL.split('/d/')[1].split('/')[0]
+                        : googleDocURL
+                        
+                        $.getJSON(
+                            apiUrl + spreadsheetId + '?key=' + googleApiKey
+                            ).then(function(data) {//getting the sheet names
+                                var sheets = data.sheets.map(function(o) {return o.properties.title})
+                                if (sheets.length === 0) {
+                                    'Could not load data from the Google Sheet - sheets.length === 0'
+                                } else {
+                                    console.log(sheets)
+                                }
+
+                                //reading the sheet
+                                $.when(
+                                    $.getJSON(apiUrl + spreadsheetId + '/values/Points?key=' + googleApiKey)
+                                    .done(function(points) {
+                                        //call function to load the map once googlesheets data loaded in
+                                        //putting console here to determine that im getting the data
+                                        console.log(points)
+                                    })
+                                )
+                            })
+                    } else { 
+                    console.log('ajax success, but issue with apikey test'
+                               )}
+                }})
+                    
+            
+        </script>
+        
+    </body>
+</html>
