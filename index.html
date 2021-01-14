@@ -63,6 +63,7 @@
                                 if (sheets.length === 0) {
                                     'Could not load data from the Google Sheet - sheets.length === 0'
                                 } else {
+                                    console.log('printing var "sheets"')
                                     console.log(sheets)
                                 }
 
@@ -72,6 +73,7 @@
                                     .done(function(points) {
                                         //call function to load the map once googlesheets data loaded in
                                         //putting console here to determine that im getting the data
+                                        console.log('printing var "points"')
                                         console.log(points)
                                     })
                                 )
