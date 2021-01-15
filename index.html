@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         
         <title>Testing Map for WiOutside</title>
         
@@ -17,7 +18,16 @@
         
         <!-- PapaParse -->
         <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
-        
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            html, body, #mapid{
+                height: 100%;
+                width: 100vw;
+            }
+        </style>        
     </head>
     
     <body>
@@ -26,7 +36,7 @@
         <script type="text/javascript" src="constants.js"></script>
         
         <!-- Map container-->
-        <div id='mapid' style='width:600px; height: 400px'></div>
+        <div id='mapid'></div>
         <!-- Map script-->
         <script>
             
