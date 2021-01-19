@@ -54,7 +54,8 @@
                 ext: 'png'
             });
             
-            Stamen_TonerBackground.addTo(myMap);
+            //Stamen_TonerBackground.addTo(myMap);
+            OpenStreetMap_Mapnik.addTo(myMap);
             
             var personData;
             var personLayer = L.geoJSON().addTo(myMap);
