@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         
-        <title>TTLockout Map</title>
+        <title>Testing Map for WiOutside</title>
         
         <!-- Leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -54,11 +54,14 @@
                 ext: 'png'
             });
             
-            //Stamen_TonerBackground.addTo(myMap);
-            OpenStreetMap_Mapnik.addTo(myMap);
+            Stamen_TonerBackground.addTo(myMap);
             
             var personData;
-            var personLayer = L.geoJSON().addTo(myMap);
+            var personLayer = L.geoJSON(null,{
+                                        pointToLayer: pointToLayer,
+                                        style: styleFunction,
+                                        onEachFeature: onEachFeature,
+                                        });
             
             //FUNCTION DEFINITIONS
             function storePersonData(data) { //to bind the data pulled in into the variable
@@ -70,9 +73,9 @@
             console.log('reaching fetch api testing')
             var apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/'
             var spreadsheetId = googleDocURL.indexOf('/d/') > 0
-            ? googleDocURL.split('/d/')[1].split('/')[0]
-            : googleDocURL
-            var headers;
+                                    ? googleDocURL.split('/d/')[1].split('/')[0]
+                                    : googleDocURL
+            var headers;//container for list of sheet headers
             
                   
             //taken from Chaining Promises https://developers.google.com/web/updates/2015/03/introduction-to-fetch
@@ -123,8 +126,35 @@
             
             function loadData(data, leafletLayer) { //TODO: ADD STYLING, POPUPBINDING ETC.
                 leafletLayer.addData(data.features);
+                leafletLayer.addTo(myMap);
             }
 
+        
+        //testing functions
+            
+        function pointToLayer(feature, latlng) {
+            return L.circleMarker(latlng, {
+                        radius: 8,
+                        weight: 1,
+                        fillOpacity: 1,
+                        fillColor: 'blue',
+                        color: 'black'
+                    })
+        }
+        
+        function styleFunction(feature) {
+            switch (feature.properties.status) {
+                case 'waiting': return {fillColor: 'red'};
+                case 'granted': return {fillColor: 'green'};
+            }
+        }
+        
+        function onEachFeature (feature, layer) {
+            let outputString = '';
+            outputString += '<b>' + feature.properties.status + '</b>';
+            //console.log(feature);
+            layer.bindPopup(outputString);
+        }
     </script>
         
     </body>
