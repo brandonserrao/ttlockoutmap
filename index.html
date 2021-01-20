@@ -25,6 +25,12 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/><!--not needed if you use your own iconCreateFunction instead of this default one-->
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
         
+            <!--sidebar files-->
+        <script src="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.js"></script>
+        <link rel="stylesheet" href="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.css"/>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        
         
         
         <style>
@@ -41,6 +47,7 @@
     
     <body>
         
+        
         <!-- Load in constants and options-->
         <script type="text/javascript" src="constants.js"></script>
         <script type="text/javascript" src="options.js"></script>
@@ -50,8 +57,10 @@
         <!-- Map script-->
         <script>
             
+            //LEAFLET MAP CODE
             //init map variable//
-            var myMap = L.map('mapid').setView([0,0], 2)
+            var myMap = L.map('mapid', mapOptions)//.setView([0,0], 2)
+
             //add map layer the map via methods//
             var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
@@ -68,6 +77,14 @@
             
             Stamen_TonerBackground.addTo(myMap);
             
+            
+            //SIDEBAR CODE
+            var sidebar = L.control.sidebar().addTo(myMap);
+            sidebar.addPanel(homePanelContent);
+            sidebar.addPanel(githubButton);
+            sidebar.addPanel(storyTickerContent);
+            
+            //MAP MARKER AND DATA FETCHING CODE
             var pulseIcon = L.icon.pulse(pulseIconOptions);
             var pulseIcon2 = L.icon.pulse(pulseIconOptions2);
                         
