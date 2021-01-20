@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         
-        <title>TT Lockout Map</title>
+        <title>Testing Map for TT Lockout Map</title>
         
         <!-- Leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -15,6 +15,17 @@
 
         <!-- PapaParse -->
         <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+        
+        <!-- leaflet-pulse-icon-->
+        <script src="plugins/leaflet-icon-pulse/dist/L.Icon.Pulse.js"></script>
+        <link rel="stylesheet" href="plugins/leaflet-icon-pulse/dist/L.Icon.Pulse.css"/>
+        
+        <!-- Leaflet.markercluster-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/><!--not needed if you use your own iconCreateFunction instead of this default one-->
+        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
+        
+        
         
         <style>
             body {
@@ -30,8 +41,9 @@
     
     <body>
         
-        <!-- Load in constants-->
+        <!-- Load in constants and options-->
         <script type="text/javascript" src="constants.js"></script>
+        <script type="text/javascript" src="options.js"></script>
         
         <!-- Map container-->
         <div id='mapid'></div>
@@ -56,15 +68,20 @@
             
             Stamen_TonerBackground.addTo(myMap);
             
+            var pulseIcon = L.icon.pulse(pulseIconOptions);
+            var pulseIcon2 = L.icon.pulse(pulseIconOptions2);
+                        
             var personData;
             var personLayer = L.geoJSON(null,{
-                                        pointToLayer: pointToLayer,
+                                        //pointToLayer: pointToLayer, //default is to spawn a ddefault Marker a la function(geoJson, latlng) {return L.marker(latlng);}
                                         style: styleFunction,
                                         onEachFeature: onEachFeature,
                                         });
+            var markers = L.markerClusterGroup(clusterMarkerOptions);
             
             //FUNCTION DEFINITIONS
-            function storePersonData(data) { //to bind the data pulled in into the variable
+            //bind the data pulled in into the data variable
+            function storePersonData(data) {
                 console.log('stored personData');
                 personData = data;
             }
@@ -79,6 +96,7 @@
             
                   
             //taken from Chaining Promises https://developers.google.com/web/updates/2015/03/introduction-to-fetch
+            
             function status(response) {
               if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response)
@@ -91,7 +109,7 @@
               return response.json()
             }
             
-            
+            //construct geojson out of array of data from the google sheet
             function toGeoJSONFeatureCollection(arrayOfRows) {//create spec-respecting collection of geojson points out of the data
                 var outputGeoJSON = {"type": "FeatureCollection",
                                     "features": []
@@ -111,6 +129,7 @@
                 return outputGeoJSON;
                 };
                 
+            
             //fetch(apiUrl + spreadsheetId + '?key=' + googleApiKey)
             fetch(apiUrl + spreadsheetId + '/values/Points?key=' + googleApiKey)
             .then(status)
@@ -124,9 +143,17 @@
                 console.log('Request failed', error);
             });
             
-            function loadData(data, leafletLayer) { //TODO: ADD STYLING, POPUPBINDING ETC.
+            //
+            function loadData(data, leafletLayer) {
                 leafletLayer.addData(data.features);
-                leafletLayer.addTo(myMap);
+                
+                markers.addLayer(leafletLayer);
+                markers.eachLayer(function (layer) {
+                    layer.setIcon(pulseIcon2);
+                });
+                myMap.addLayer(markers);
+                myMap.fitBounds(markers.getBounds());
+                //leafletLayer.addTo(myMap);
             }
 
         
@@ -142,7 +169,8 @@
                     })
         }
         
-        function styleFunction(feature) {
+        //obsoleted - was being used to affect the markers drawn by the geojson layer; markers now drawn by clustermakerlayer (var markers) and appearance controlled by options.js 
+        function styleFunction(feature) { 
             switch (feature.properties.status) {
                 case 'waiting': return {fillColor: 'red'};
                 case 'granted': return {fillColor: 'green'};
@@ -155,6 +183,8 @@
             //console.log(feature);
             layer.bindPopup(outputString);
         }
+            
+
     </script>
         
     </body>
