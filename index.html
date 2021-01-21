@@ -25,12 +25,12 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/><!--not needed if you use your own iconCreateFunction instead of this default one-->
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
         
-            <!--sidebar files-->
+        <!--sidebar files-->
         <script src="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.js"></script>
         <link rel="stylesheet" href="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.css"/>
 
+<!--        font awesome-->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        
         
         
         <style>
@@ -46,16 +46,21 @@
     </head>
     
     <body>
-        
+<!--        <button onclick='window.open("builtFormLink","_blank")'>Go To Prefilled Form</button>-->
         
         <!-- Load in constants and options-->
+<!--
         <script type="text/javascript" src="constants.js"></script>
         <script type="text/javascript" src="options.js"></script>
+-->
+        <script type="text/javascript" src='js/constants.js'></script>
+        <script type="text/javascript" src='js/options.js'></script>
         
         <!-- Map container-->
         <div id='mapid'></div>
         <!-- Map script-->
         <script>
+            
             
             //LEAFLET MAP CODE
             //init map variable//
@@ -75,7 +80,8 @@
                 ext: 'png'
             });
             
-            Stamen_TonerBackground.addTo(myMap);
+            //Stamen_TonerBackground.addTo(myMap);
+            OpenStreetMap_Mapnik.addTo(myMap);
             
             
             //SIDEBAR CODE
@@ -83,8 +89,111 @@
             sidebar.addPanel(homePanelContent);
             sidebar.addPanel(githubButton);
             sidebar.addPanel(storyTickerContent);
+//            sidebar.addPanel(formTabContent);
             
-            //MAP MARKER AND DATA FETCHING CODE
+            
+            //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
+            
+                        
+            //init empty variable
+            var formLink = '';
+//          var formLink = 'https://docs.google.com/forms/d/e/1FAIpQLSeIZzZ4m6gZqgVPszbrReHtE6g4n0k7gnTGQxKjmx198m0GAA/viewform?usp=pp_url&entry.951397439=location&entry.1691643040=coords&entry.1075366382=alias' 
+                        
+            var selectorValues = { //init container for for location selector values
+                    city : 'placeholder',
+                    coords : 'placeholder',
+                }
+            
+            //making selector marker
+            locationSelector = L.marker([0,0], {
+                                    draggable: true,
+                                    autoPan: true,
+                                })
+            .addTo(myMap)
+            .bindPopup('<p>alles gut</p>')
+            .on('moveend', onMoveEnd)
+            .on('click', onClick)
+            .on('dblclick', onDblClick)
+            .on('movestart', onMoveStart)
+            .on('mouseover', onMouseOver)
+            .on('mouseout', onMouseOut)
+            //.on('add', onAdd)
+            //.on('remove', onRemove)
+            //.on('popupopen', onPopupOpen)
+            //.on('popupclose', onPopupClose)
+            //.on('contextmenu', onContextMenu);
+            
+            //check the docs for details on the triggers
+            function onMoveStart(e) {
+                console.log('movestart');
+                this.setPopupContent('*<b>SCREAMS</b>*');
+                this.openPopup()
+                selectorValues.coords='moving';
+            }
+            function onMoveEnd(e) {
+                console.log('onmoveend');
+                let latlng = this.getLatLng();
+                console.log(latlng);
+                selectorValues.coords=latlng.lat.toString()+','+latlng.lng.toString();
+                rebuildFormLink();
+                console.log('formLink: ' + formLink);
+            }
+            
+            function onClick(e) {
+                console.log('onclick');
+                console.log(e);
+            }
+            
+            function onMouseOver(e) {
+                console.log('mouseover');
+                this.setOpacity(0.3);
+            }
+            function onMouseOut(e) {
+                console.log('mouseout');
+                this.setOpacity(1);
+            }
+            
+            function onDblClick(e) {
+                console.log(this.remove());
+                console.log('ondblclick removed');
+            }
+            
+            function onRemove(e) {
+                console.log('location selector removed');
+            }
+            function onAdd(e) {
+                console.log('location selector added');
+            }
+            function onPopupOpen(e) {
+                console.log('popup opened');
+            }
+            function onPopupClose(e) {
+                console.log('popup closed');
+            }
+            function onContextMenu(e) {
+                console.log('rightclicked aka contextmenu')
+            }
+            
+
+
+            function rebuildFormLink() { //TODO: Trigger this when a selector marker is repositioned
+                let link = googleFormBaseURL
+                                +'&entry.'+formEntryCodes.city+'='+selectorValues.city
+                                +'&entry.'+formEntryCodes.coords+'='+selectorValues.coords
+                formLink = link;
+                return formLink;
+            }
+            
+            //formLink = buildFormLink(); 
+//            console.log(formLink);
+            
+            function openPrefilledForm(link) {//TODO: tied to button click currently
+                window.open(formLink,"_blank");
+            }
+            
+            
+            
+            //CLUSTER MARKER AND DATA FETCHING CODE
             var pulseIcon = L.icon.pulse(pulseIconOptions);
             var pulseIcon2 = L.icon.pulse(pulseIconOptions2);
                         
@@ -95,6 +204,7 @@
                                         onEachFeature: onEachFeature,
                                         });
             var markers = L.markerClusterGroup(clusterMarkerOptions);
+            
             
             //FUNCTION DEFINITIONS
             //bind the data pulled in into the data variable
