@@ -104,6 +104,9 @@
                     coords : 'placeholder',
                 }
             
+            //call function to make a valid link with placeholder info
+            rebuildFormLink();
+            
             //making selector marker
             locationSelector = L.marker([0,0], {
                                     draggable: true,
@@ -113,7 +116,7 @@
             .bindPopup('<p>alles gut</p>')
             .on('moveend', onMoveEnd)
             .on('click', onClick)
-            .on('dblclick', onDblClick)
+            //.on('dblclick', onDblClick)
             .on('movestart', onMoveStart)
             .on('mouseover', onMouseOver)
             .on('mouseout', onMouseOut)
@@ -137,6 +140,7 @@
                 selectorValues.coords=latlng.lat.toString()+','+latlng.lng.toString();
                 rebuildFormLink();
                 console.log('formLink: ' + formLink);
+                this.closePopup();
             }
             
             function onClick(e) {
@@ -220,7 +224,7 @@
                                     ? googleDocURL.split('/d/')[1].split('/')[0]
                                     : googleDocURL
             var headers;//container for list of sheet headers
-            
+            var headersDict={};
                   
             //taken from Chaining Promises https://developers.google.com/web/updates/2015/03/introduction-to-fetch
             
@@ -241,12 +245,18 @@
                 var outputGeoJSON = {"type": "FeatureCollection",
                                     "features": []
                                     };
-                headers = arrayOfRows.shift(); //get rid of header row
+                headers = arrayOfRows.shift(); //get rid of header row and store it 
+                for (let i = 0; i < headers.length; i++) { //construct headersDictionary to reference field
+                    headersDict[headers[i]] = i;
+                }
                 
                 arrayOfRows.forEach(function(row) {
                     var feature = {"type": "Feature"};
                     feature["geometry"] = {"type": "Point",
-                                          "coordinates": [parseFloat(row[0]), parseFloat(row[1])]};
+                                          "coordinates": [//geoJSON spec is lng,lat as decimals and in that order
+                                              parseFloat(row[headersDict.lng]),
+                                              parseFloat(row[headersDict.lat])
+                                                         ]};
                     feature["properties"] = {};
                     for (let i = 2; i < headers.length; i++){
                         feature["properties"][headers[i]] = row[i];
