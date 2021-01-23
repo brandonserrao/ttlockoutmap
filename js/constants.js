@@ -14,4 +14,7 @@ var formEntryCodes = {
     housing : '2043861216',
 }
 
-//
+//control of snippet length
+var snippetLength = 180 ;//based on twitter old length
+
+var tickerContainerId = 'ticker-wrapper-inner';

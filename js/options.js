@@ -1,16 +1,24 @@
 var mapOptions = {
+    inertia: true,
     zoomControl: false,
     zoomDelta: 1,
     center: [-61.22, 10.69],
     zoom: 2,
     maxBounds: [[80, -180],
-               [-75, 180]],    
+               [-75, 180]],  
+    noWrap: true,
     //maxBounds: [[85, -Infinity], [-85, Infinity]],//markers do not map to the horizontal space
     minZoom: 2,
     maxZoom: 8,
     markerZoomAnimation: true,
     maxBoundsViscosity: 0.1,
     };
+
+var panOptions = {
+    animate: true,
+    duration: 0.5,
+    easeLinearity: 0.25,
+};
 
 var geocoderControlOptions = {
     position: 'topleft', // In addition to standard 4 corner Leaflet control layout, this will position and size from top center.
@@ -56,11 +64,18 @@ var clusterMarkerOptions = {
         };
 
 
+var sidebarOptions = {
+    autopan: true,       // whether to maintain the centered map point when opening the sidebar
+    closeButton: false,    // whether t add a close button to the panes
+    container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
+    position: 'left',     // left or right
+}
+    
 var homePanelContent = {
     id: 'home',
     tab: '<i class="fa fa-home"></i>',
     title:'Home Panel',
-    pane:'<h2>Content Header</h2><p>Put your content into here</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
+    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
     position: 'top',
 };
 
@@ -75,13 +90,17 @@ var storyTickerContent = {
     id: 'ticker',
     tab: '<i class="fa fa-comments"></i>',
     //title:'Stories',
-    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
+//    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
+    //'<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"><li>placeholder ticker html string</li></ul></div></div>'
+//    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
+    pane: '<div><h1>Snippet Ticker Tab</h1><p>Button adds an entry to the list below.<br>Clicking on the text should move you to the location and open up a popup with the full text.</p><h3>TODO:</h3><ul><li>fix zooming in and breaking apart clusters to successfully open popups.</li><li>Get CSS Autoscrolling animation working for the ticker.</li><li>Add childCount to larger cluster icons (maybe)?</li><li>Fill Home tab with info/splash text, and update with official/useful links</li><button onclick="createTickerEntry()">createTickerEntry()</button></div><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
+
 };
 
 var formTabContent = {
-    id: 'ticker',
-    tab: '<i class="fa fa-map-marked"></i>',
+    id: 'form',
+    tab: '<i class="fa fa-bars"></i>',
     //title:'Stories',
-    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
+    pane:'<h2>TODO:</h2><h3>CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</h3>'
 };
 

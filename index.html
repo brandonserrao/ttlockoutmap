@@ -36,6 +36,12 @@
         <link rel="stylesheet" href="plugins/Leaflet.Geonames/L.Control.Geonames.css" />
         <script src="plugins/Leaflet.Geonames/L.Control.Geonames.min.js"></script>
         
+<!--        ticker-->
+        <link rel='stylesheet' href='ticker/ticker.css'/>
+<!--        <script src='ticker/ticker.js'></script>-->
+        <script src='ticker/tickerfunctions.js'></script>
+        
+        
         
         
         <style>
@@ -85,14 +91,14 @@
                 ext: 'png'
             });
             
-            var Stamen_TonerLabels = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.{ext}', {
+/*            var Stamen_TonerLabels = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.{ext}', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
                 minZoom: 0,
                 maxZoom: 20,
                 ext: 'png'
             });
-            
+            */
             var Stamen_TonerLight = L.tileLayer('//{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
                             attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
                             subdomains: 'abcd',
@@ -104,14 +110,22 @@
             OpenStreetMap_Mapnik.addTo(myMap);
             //Stamen_TonerLight.addTo(myMap);
             
+            //END LEAFLET MAP CODE
 
-            
-            //SIDEBAR CODE
-            var sidebar = L.control.sidebar().addTo(myMap);
-            sidebar.addPanel(homePanelContent);
+
+            //SIDEBAR SETUP CODE
+            var sidebar = L.control.sidebar(sidebarOptions).addTo(myMap);
+            sidebar.addPanel(homePanelContent)
+//            .open('home'); //open frontpage panel after adding
             sidebar.addPanel(githubButton);
             sidebar.addPanel(storyTickerContent);
-//            sidebar.addPanel(formTabContent);
+            sidebar.addPanel(formTabContent);
+            
+            sidebar.open('ticker'); //open ticker for debugging
+            
+            myMap.on('click', function() {sidebar.close()});
+            
+            //END SIDEBAR SETUP CODE
             
             
             //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
@@ -216,6 +230,9 @@
             }
             
             
+            //END GOOGLE FORM AND SELECTOR CODE
+            
+            
             //GEOCODER CODE
             var geocoderControl = L.control.geonames(geocoderControlOptions).addTo(myMap);
             geocoderControl.on('select', function(e) {
@@ -226,6 +243,7 @@
             
             }); //giving access to the location of the found
                     
+            //END GEOCODER CODE
             
             
             //CLUSTER MARKER AND DATA FETCHING CODE
@@ -347,11 +365,13 @@
         
         function onEachFeature (feature, layer) {
             let outputString = '';
-            outputString += '<b>' + feature.properties.status + '</b>';
+//            outputString += '<b>' + feature.properties.status + '</b>';
+            outputString += feature.properties.story;
             //console.log(feature);
             layer.bindPopup(outputString);
         }
             
+
 
     </script>
         
