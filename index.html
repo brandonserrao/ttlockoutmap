@@ -32,6 +32,11 @@
 <!--        font awesome-->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         
+<!--        leaflet.geonames-->
+        <link rel="stylesheet" href="plugins/Leaflet.Geonames/L.Control.Geonames.css" />
+        <script src="plugins/Leaflet.Geonames/L.Control.Geonames.min.js"></script>
+        
+        
         
         <style>
             body {
@@ -68,11 +73,19 @@
 
             //add map layer the map via methods//
             var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
+//                maxZoom: 19,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
             
             var Stamen_TonerBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
+                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                subdomains: 'abcd',
+//                minZoom: 0,
+//                maxZoom: 20,
+                ext: 'png'
+            });
+            
+            var Stamen_TonerLabels = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.{ext}', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
                 minZoom: 0,
@@ -80,9 +93,18 @@
                 ext: 'png'
             });
             
-            //Stamen_TonerBackground.addTo(myMap);
-            OpenStreetMap_Mapnik.addTo(myMap);
+            var Stamen_TonerLight = L.tileLayer('//{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
+                            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+                            subdomains: 'abcd',
+//                            maxZoom: 10,
+//                            minZoom: 2
+                        });
             
+            //Stamen_TonerBackground.addTo(myMap);
+            //OpenStreetMap_Mapnik.addTo(myMap);
+            Stamen_TonerLight.addTo(myMap);
+            
+
             
             //SIDEBAR CODE
             var sidebar = L.control.sidebar().addTo(myMap);
@@ -93,8 +115,6 @@
             
             
             //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
-            
-                        
             //init empty variable
             var formLink = '';
 //          var formLink = 'https://docs.google.com/forms/d/e/1FAIpQLSeIZzZ4m6gZqgVPszbrReHtE6g4n0k7gnTGQxKjmx198m0GAA/viewform?usp=pp_url&entry.951397439=location&entry.1691643040=coords&entry.1075366382=alias' 
@@ -195,6 +215,17 @@
                 window.open(formLink,"_blank");
             }
             
+            
+            //GEOCODER CODE
+            var geocoderControl = L.control.geonames(geocoderControlOptions).addTo(myMap);
+            geocoderControl.on('select', function(e) {
+                console.log(e.geoname);
+                selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
+                selectorValues.city = e.geoname.toponymName;
+                rebuildFormLink(); //update selection coords to be sent with form
+            
+            }); //giving access to the location of the found
+                    
             
             
             //CLUSTER MARKER AND DATA FETCHING CODE
