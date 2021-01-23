@@ -8,7 +8,8 @@ var mapOptions = {
                [-75, 180]],  
     noWrap: true,
     //maxBounds: [[85, -Infinity], [-85, Infinity]],//markers do not map to the horizontal space
-    minZoom: 2,
+    //minZoom: 2,
+    minZoom: 4,
     maxZoom: 8,
     markerZoomAnimation: true,
     maxBoundsViscosity: 0.1,
