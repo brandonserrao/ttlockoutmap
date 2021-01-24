@@ -357,12 +357,14 @@
             
             
             //GEOCODER CODE
-            var geocoderControl = L.control.geonames(geocoderControlOptions).addTo(myMap);
+            var geocoderControl = L.control.geonames(geocoderControlOptions)//.addTo(myMap)
+            ;
             geocoderControl.on('select', function(e) {
                 console.log(e.geoname);
                 selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
                 selectorValues.city = e.geoname.toponymName;
-                rebuildFormLink(); //update selection coords to be sent with form
+                let formLink = rebuildFormLink(); 
+                document.getElementById('registerLink').outerHTML = '<a href="' + formLink + '">' + 'Registration Link';//update selection coords to be sent with form
             
             }); //giving access to the location of the found
                     

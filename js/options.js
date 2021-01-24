@@ -25,7 +25,7 @@ var geocoderControlOptions = {
     geonamesSearch: 'https://secure.geonames.org/searchJSON', // Override this if using a proxy to get connection to geonames.
     geonamesPostalCodesSearch: 'https://secure.geonames.org/postalCodeSearchJSON', // Override this if using a proxy to get connection to geonames.
     username: 'brandonserrao', // Geonames account username.  Must be provided.
-    maxresults: 5, // Maximum number of results to display per search.
+    maxresults: 10, // Maximum number of results to display per search.
     zoomLevel: null, // Max zoom level to zoom to for location. If null, will use the map's max zoom level.
     className: 'leaflet-geonames-icon', // Class for icon.
     workingClass: 'leaflet-geonames-icon-working', // Class for search underway.
@@ -81,9 +81,28 @@ var homePanelContent = {
     tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h2 class="sidebarh2">Prelim Info</h2></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button></div><div><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div>',
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h2 class="sidebarh2">A map of stranded nationals, their situation, and experiences.</h2></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><p>Register linktext leads to submission form.</p><a id="registerLink" onclick="openGeoSearch(this);">Register</a></div>',
     position: 'top',
 };
+/*
+var homePanelContent = {
+    id: 'home',
+    tab: '<i class="fa fa-home"></i>',
+    title:'T&T Lockout Map',
+//    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h2 class="sidebarh2">A map of stranded nationals, their situation, and experiences.</h2></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><p>Register linktext leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button><a id="registerLink" onclick="openGeoSearch(this);">Register</a></div><div><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div>',
+    position: 'top',
+};*/
+
+function openGeoSearch(element) {
+    element.outerHTML = '<p id="registerLink">Find your nearest location using the search bar.</p>';
+//    element.onclick = 'onGeocoderSelect(this);';
+    geocoderControl.addTo(myMap)
+        .show()
+        //.focus()
+    ;
+}
+
 
 var githubButton = {
     id: 'ghlink',
