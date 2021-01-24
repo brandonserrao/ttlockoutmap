@@ -36,23 +36,87 @@
         <link rel="stylesheet" href="plugins/Leaflet.Geonames/L.Control.Geonames.css" />
         <script src="plugins/Leaflet.Geonames/L.Control.Geonames.min.js"></script>
         
-<!--        ticker-->
-        <link rel='stylesheet' href='ticker/ticker.css'/>
-        <script src='ticker/ticker.js'></script>
-        <script src='ticker/tickerfunctions.js'></script>
+<!--        my ticker code-->
+        <script src='js/tickerfunctions.js'></script>
+
         
         
         
         
         <style>
-            body {
+
+            body{
                 padding: 0;
                 margin: 0;
             }
-            html, body, #mapid{
+            html, body{
                 height: 100%;
                 width: 100vw;
             }
+            #mapid {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            
+            #mapinfo_container {
+                height: 30%;
+                max-height: 25%;
+            }
+            
+            #about_container {
+                height: 15%;
+                max-height: 20vh;
+            }
+            
+            #ticker {
+                width: 100%;
+                height: 50vh;
+/*                max-height: 50vh;*/
+
+            }
+            
+            #ticker-wrapper {
+                max-height: 100%;
+                overflow-y: scroll;
+
+            }
+/*            destination div section for container html code in the sidebar*/
+            #ticker-wrapper-inner { 
+                height: 100%;
+                padding: 0;
+                margin: 0;
+/*                background-color: lightgray;*/
+                opacity: 0.8;
+/*                overflow-y: scroll;*/
+            }
+            
+            #ticker-wrapper-inner ul {
+                list-style-type: none;
+            }
+                
+            #ticker-wrapper-inner li {
+                margin: 0.5em;
+                padding-left: 0;
+                padding-top: 0.5em;
+                padding-bottom: 0.5em;
+/*                width: 100%;*/
+                background-color: whitesmoke;
+                    
+                }
+            
+            .snippet_text {
+                color: brown;
+            }
+            .sidebarh2 {
+                
+            }
+            
+            .sidebarh3{
+                
+                
+            }
+            
         </style>
     </head>
     
@@ -156,60 +220,32 @@
 //                maxZoom: 20,
                 ext: 'png'
             });
-            
-/*            var Stamen_TonerLabels = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}{r}.{ext}', {
+
+            var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
-                minZoom: 0,
+                minZoom: 2,
                 maxZoom: 20,
                 ext: 'png'
             });
-            */
-            //var Stamen_TonerLight = L.tileLayer('//{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
-            //                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            //                subdomains: 'abcd',
-//                            maxZoom: 10,
-//                            minZoom: 2
-            //            });
-            
-            var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
-	            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	            subdomains: 'abcd',
-	            minZoom: 0,
-	            maxZoom: 20,
-	            ext: 'png'
-});
-            
+
             //Stamen_TonerBackground.addTo(myMap);
             //OpenStreetMap_Mapnik.addTo(myMap);
-//             Stamen_TonerLight.addTo(myMap);
             Stamen_TonerLite.addTo(myMap);
             
             //END LEAFLET MAP CODE
             
-            //PLACEHOLDER CODE
-            var testContent = {
-                id: 'test',
-                tab: '<i class="fa fa-circle"></i>',
-                title:'TickerTesting',
-                pane: document.getElementById('ticker_template').innerHTML,
-            };
 
-
+            
             //SIDEBAR SETUP CODE
             var sidebar = L.control.sidebar(sidebarOptions).addTo(myMap);
             sidebar.addPanel(homePanelContent)
-//            .open('home'); //open frontpage panel after adding
+            .open('home'); //open frontpage panel after adding
             sidebar.addPanel(githubButton);
-            sidebar.addPanel(storyTickerContent);
-            //
-            sidebar.addPanel(formTabContent);
-//            sidebar.addPanel(testContent);
-            //sidebar.addPanel(testContent);
-            
-            sidebar.open('ticker'); //open ticker for debugging
+//            sidebar.open('ticker'); //open ticker for debugging
             
             myMap.on('click', function() {sidebar.close()});
+                        
             
             //END SIDEBAR SETUP CODE
             
@@ -217,7 +253,6 @@
             //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
             //init empty variable
             var formLink = '';
-//          var formLink = 'https://docs.google.com/forms/d/e/1FAIpQLSeIZzZ4m6gZqgVPszbrReHtE6g4n0k7gnTGQxKjmx198m0GAA/viewform?usp=pp_url&entry.951397439=location&entry.1691643040=coords&entry.1075366382=alias' 
                         
             var selectorValues = { //init container for for location selector values
                     city : 'placeholder',
@@ -232,7 +267,7 @@
                                     draggable: true,
                                     autoPan: true,
                                 })
-            .addTo(myMap)
+//            .addTo(myMap)
             .bindPopup('<p>alles gut</p>')
             .on('moveend', onMoveEnd)
             .on('click', onClick)
@@ -244,8 +279,12 @@
             //.on('remove', onRemove)
             //.on('popupopen', onPopupOpen)
             //.on('popupclose', onPopupClose)
-            //.on('contextmenu', onContextMenu);
+            //.on('contextmenu', onContextMenu)
+            ;
             
+            if (selectorOn) {
+                locationSelector.addTo(myMap);
+            }
             //check the docs for details on the triggers
             function onMoveStart(e) {
                 console.log('movestart');
@@ -308,8 +347,6 @@
                 return formLink;
             }
             
-            //formLink = buildFormLink(); 
-//            console.log(formLink);
             
             function openPrefilledForm(link) {//TODO: tied to button click currently
                 window.open(formLink,"_blank");
@@ -410,10 +447,13 @@
                 //console.log('Request succeeded with JSON response', data);
                 storePersonData(toGeoJSONFeatureCollection(data.values));
                 loadData(personData, personLayer);
-                //console.log(JSON.stringify(personData));
-            }).catch(function(error) {
+                fillTicker(snippetCount);
+                console.log('filled Ticker as part of fetch');
+            })
+                .catch(function(error) {
                 console.log('Request failed', error);
             });
+            
             
             //
             function loadData(data, leafletLayer) {
@@ -424,7 +464,7 @@
                     layer.setIcon(pulseIcon2);
                 });
                 myMap.addLayer(markers);
-                myMap.fitBounds(markers.getBounds());
+                //myMap.fitBounds(markers.getBounds());
                 //leafletLayer.addTo(myMap);
             }
 
@@ -458,11 +498,9 @@
         }
             
 
-            
-        //fill Ticker with content;
-        fillTicker(snippetCount);
+
 
     </script>
-        
+
     </body>
 </html>

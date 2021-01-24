@@ -3,12 +3,12 @@ var mapOptions = {
     zoomControl: false,
     zoomDelta: 1,
     center: [11,-61],
-    zoom: 4,
+    zoom: 3,
     maxBounds: [[80, -180],
-               [-75, 180]],  
+               [-80, 180]],  
     noWrap: true,
     //maxBounds: [[85, -Infinity], [-85, Infinity]],//markers do not map to the horizontal space
-    minZoom: 4,
+    minZoom: 2,
     maxZoom: 8,
     markerZoomAnimation: true,
     maxBoundsViscosity: 0.1,
@@ -43,6 +43,10 @@ var geocoderControlOptions = {
     placeholder: 'Enter nearby city name' // Search input placeholder text.
 };
 
+var tickerControlOptions = {
+    position: 'bottomleft'
+}
+
 var pulseIconOptions = {
             iconSize:[20,20], 
             color:'blue', 
@@ -66,7 +70,8 @@ var clusterMarkerOptions = {
 
 var sidebarOptions = {
     autopan: true,       // whether to maintain the centered map point when opening the sidebar
-    closeButton: false,    // whether t add a close button to the panes
+    closeButton: true,    // whether t add a close button to the panes
+//    container: 'tickerdiv', // the DOM container or #ID of a predefined sidebar container that should be used
     container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
     position: 'left',     // left or right
 }
@@ -74,8 +79,9 @@ var sidebarOptions = {
 var homePanelContent = {
     id: 'home',
     tab: '<i class="fa fa-home"></i>',
-    title:'Home Panel',
-    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
+    title:'T&T Lockout Map',
+//    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h2 class="sidebarh2">Prelim Info</h2></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button></div><div><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div>',
     position: 'top',
 };
 
@@ -85,6 +91,7 @@ var githubButton = {
     button:'https://github.com/brandonserrao/legendary-barnacle',
     position: 'bottom',
 };
+/*
 
 var storyTickerContent = {
     id: 'ticker',
@@ -111,3 +118,4 @@ var formTabContent = {
     pane:'<h2>TODO:</h2><h3>CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</h3>'
 };
 
+*/

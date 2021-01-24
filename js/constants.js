@@ -1,7 +1,7 @@
 // paste in your published Google Sheets URL from the browser address bar
 var googleDocURL = 'https://docs.google.com/spreadsheets/d/1ynT90bScxc8q9NJX3Erk4PGp0Y6-lCq9eqrJRnie1w0/edit#gid=0'
 
-// my Google Sheets API key from https://console.developers.google.com
+//Google Sheets API key from https://console.developers.google.com
 var googleApiKey = 'AIzaSyDH7_RHe79ajPYJH5hgg-9i97ER-NrpNks';
 
 //link to google forms and entry codes for pre-filling; add '&entry.CODESTRING=DESIREDVALUE' at end of BaseURL to prefill desired entries
@@ -17,5 +17,8 @@ var formEntryCodes = {
 //control of snippet length
 var snippetLength = 180 ;//based on twitter old length
 
-var tickerContainerId = 'ticker-wrapper-inner';
+var tickerContainerId = 'ticker-wrapper-inner'//'ticker-wrapper-inner';
+//var tickerContainerId = 'ticker_container'//'ticker-wrapper-inner';
 var snippetCount = 50;
+
+var selectorOn = false;
