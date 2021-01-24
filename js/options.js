@@ -93,8 +93,15 @@ var storyTickerContent = {
 //    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
     //'<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"><li>placeholder ticker html string</li></ul></div></div>'
 //    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
-    pane: '<div><h1>Snippet Ticker Tab</h1><p>Button adds an entry to the list below.<br>Clicking on the text should move you to the location and open up a popup with the full text.</p><h3>TODO:</h3><ul><li>fix zooming in and breaking apart clusters to successfully open popups.</li><li>Get CSS Autoscrolling animation working for the ticker.</li><li>Add childCount to larger cluster icons (maybe)?</li><li>Fill Home tab with info/splash text, and update with official/useful links</li><button onclick="createTickerEntry()">createTickerEntry()</button></div><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
+    pane: '<div><h1>Snippet Ticker Tab</h1><p>Button adds an entry to the list below.<br>Clicking on the text should move you to the location and open up a popup with the full text.</p><h3>TODO:</h3><ul><li>fix zooming in and breaking apart clusters to successfully open popups.</li><li>Get CSS Autoscrolling animation working for the ticker.</li><li>Add childCount to larger cluster icons (maybe)?</li><li>Fill Home tab with info/splash text, and update with official/useful links</li><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
 
+};
+
+var testContent = {
+    id: 'test',
+    tab: '<i class="fa fa-circle"></i>',
+    title:'TickerTesting',
+    pane: document.getElementById('ticker_template').innerHTML,
 };
 
 var formTabContent = {

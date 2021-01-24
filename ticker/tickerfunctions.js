@@ -69,7 +69,12 @@ function onTickerItemClick(element) {
     return leafletID;
     };
 
-
+//fills ticker with n number of random snippets
+function fillTicker(n) {
+    for (i = 0; i < n; i++) {
+        createTickerEntry();
+    }
+}
 
 
 

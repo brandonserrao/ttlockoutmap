@@ -18,3 +18,4 @@ var formEntryCodes = {
 var snippetLength = 180 ;//based on twitter old length
 
 var tickerContainerId = 'ticker-wrapper-inner';
+var snippetCount = 50;

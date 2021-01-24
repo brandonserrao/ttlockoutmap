@@ -34,10 +34,11 @@
 				self.wrapper.style.top = "-" + top + "px";
 
 
-			}, 5000 );
+			}, 500 );
 		},
 
 		hover: function() {
+            console.log('ticker item onhover');
 			var self = this;
 			var li = self.items;
 

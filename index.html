@@ -38,7 +38,7 @@
         
 <!--        ticker-->
         <link rel='stylesheet' href='ticker/ticker.css'/>
-<!--        <script src='ticker/ticker.js'></script>-->
+        <script src='ticker/ticker.js'></script>
         <script src='ticker/tickerfunctions.js'></script>
         
         
@@ -57,13 +57,79 @@
     </head>
     
     <body>
-<!--        <button onclick='window.open("builtFormLink","_blank")'>Go To Prefilled Form</button>-->
+        <template id='ticker_template'>
+            <div id="ticker">
+                    <div id="ticker-wrapper">
+                        <ul id="ticker-wrapper-inner">
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3 onclick='onTickerItemClick(this)'>Item #1</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3 onclick='onTickerItemClick(this)'>Item #2</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3 onclick='this.innerHTML="clicked!"'>Item #3</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #4</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #5</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #6</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #7</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #8</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #9</h3>
+                            </li>
+                            <li>
+                               <figure>
+                                <img src="http://placehold.it/80x80" alt="" />
+                               </figure>
+                               <h3>Item #10</h3>
+
+                        </ul>
+                    </div>
+                </div>	
+
+        </template>
         
-        <!-- Load in constants and options-->
-<!--
-        <script type="text/javascript" src="constants.js"></script>
-        <script type="text/javascript" src="options.js"></script>
--->
+        
+        
+
         <script type="text/javascript" src='js/constants.js'></script>
         <script type="text/javascript" src='js/options.js'></script>
         
@@ -107,10 +173,18 @@
                         });
             
             //Stamen_TonerBackground.addTo(myMap);
-            OpenStreetMap_Mapnik.addTo(myMap);
-            //Stamen_TonerLight.addTo(myMap);
+            //OpenStreetMap_Mapnik.addTo(myMap);
+            Stamen_TonerLight.addTo(myMap);
             
             //END LEAFLET MAP CODE
+            
+            //PLACEHOLDER CODE
+            var testContent = {
+                id: 'test',
+                tab: '<i class="fa fa-circle"></i>',
+                title:'TickerTesting',
+                pane: document.getElementById('ticker_template').innerHTML,
+            };
 
 
             //SIDEBAR SETUP CODE
@@ -119,7 +193,10 @@
 //            .open('home'); //open frontpage panel after adding
             sidebar.addPanel(githubButton);
             sidebar.addPanel(storyTickerContent);
+            //
             sidebar.addPanel(formTabContent);
+//            sidebar.addPanel(testContent);
+            //sidebar.addPanel(testContent);
             
             sidebar.open('ticker'); //open ticker for debugging
             
@@ -372,6 +449,9 @@
         }
             
 
+            
+        //fill Ticker with content;
+        fillTicker(snippetCount);
 
     </script>
         
