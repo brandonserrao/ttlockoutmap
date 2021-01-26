@@ -92,11 +92,9 @@ var homePanelContent = {
 
 function openGeoSearch() {
     document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
-//    element.onclick = 'onGeocoderSelect(this);';
+    sidebar.close();
     geocoderControl.addTo(myMap)
-//        .show()
         .focus()
-//    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
 }
 
 
