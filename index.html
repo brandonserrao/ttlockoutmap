@@ -282,6 +282,8 @@
             
             
             function openPrefilledForm(link) {//TODO: tied to button click currently
+                document.getElementById('registrationSteps').innerHTML = '';
+                geocoderControl.remove();
                 window.open(formLink,"_blank");
             }
             
