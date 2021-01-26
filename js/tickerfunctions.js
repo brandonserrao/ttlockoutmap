@@ -91,6 +91,30 @@ function onTickerItemClick(element) {
     return leafletID;
     };
 
+function onTickerItemRightClick(element) { //just alternative for testing panning motion options
+    console.log('onTickerItemRightClick Fired: element');
+    console.log(element);
+    console.log('getting leafletID from inside template tag');
+    let leafletID = element.getElementsByTagName('template')[0].innerHTML;
+    console.log(leafletID)
+    
+    //refocusing on marker to show the popup
+    let l = markers.getLayer(leafletID);
+//    myMap.setView(l.getLatLng());
+//    myMap.panTo(l.getLatLng());
+    myMap.once('zoomend', function() {l.openPopup()});
+    myMap.panTo(l.getLatLng());
+//    myMap.flyTo(l.getLatLng());
+    //myMap.setZoom(myMap.getMaxZoom());
+    //probably should bind the full story content to the popup at this point
+    //or change the popup content to whatever info you want to display when they click on a snippet
+//    myMap.once('zoomend', l.openPopup());
+    //myMap.zoomIn(4);
+    //l.openPopup();
+    console.log(l.getLatLng());
+    return leafletID;
+    };
+
 //fills ticker with n number of random snippets
 function fillTicker(n) {
     for (i = 0; i < n; i++) {

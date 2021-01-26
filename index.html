@@ -43,12 +43,103 @@
         
         
         
-        <style>
+<!--        <style>
 
             body{
                 padding: 0;
                 margin: 0;
             }
+            html, body{
+                height: 100%;
+                width: 100vw;
+            }
+            #mapid {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            
+            #mapinfo_container {
+                height: 30%;
+                max-height: 25%;
+            }
+            
+            #about_container {
+                height: 15%;
+                max-height: 20vh;
+            }
+            
+            #ticker {
+                width: 100%;
+                height: 50vh;
+/*                max-height: 50vh;**/
+                margin: 2em auto;
+            }
+            
+            #ticker-wrapper {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+
+            }
+/*            destination div section for container html code in the sidebar*/
+            #ticker-wrapper-inner { 
+                height: 100%;
+                padding: 0;
+                margin: 0;
+/*                background-color: lightgray;*/
+                opacity: 0.8;
+/*                overflow-y: scroll;*/
+            }
+            
+            #ticker-wrapper-inner ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                width: 100%;
+                height: 800px;
+                position: relative;
+                transition: all 1500ms ease-in;
+            }
+                
+            #ticker-wrapper-inner li {
+                display: block;
+                height: 80px;
+                width: 100%;
+                margin-bottom: 0.3em;
+                position: relative;
+                }
+            
+            #ticker-wrapper li:nth-child(even) {
+                background: #f5f5f5;
+}
+            
+            .snippet_text {
+                color: brown;
+            }
+            .sidebarh2 {
+                
+            }
+            
+            .sidebarh3{
+                
+                
+            }
+            
+        </style>-->
+        
+        <style>
+                    body{
+                padding: 0;
+                margin: 0;
+                    
+            }
+            
+            #registerLink {
+                text-decoration: underline;
+            }
+            
             html, body{
                 height: 100%;
                 width: 100vw;
@@ -116,8 +207,8 @@
                 
                 
             }
-            
         </style>
+        
     </head>
     
     <body>
@@ -244,8 +335,12 @@
             sidebar.addPanel(githubButton);
 //            sidebar.open('ticker'); //open ticker for debugging
             
-            myMap.on('click', function() {sidebar.close()});
-            myMap.on('contextmenu', function() {sidebar.open('home')});
+            myMap.on('click', function() {
+                sidebar.close();
+                
+                document.getElementById('openFormButton').disabled = 'false';//update selection coords to be sent with form
+                
+            });
                         
             
             //END SIDEBAR SETUP CODE
@@ -365,7 +460,13 @@
                 selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
                 selectorValues.city = e.geoname.toponymName;
                 let formLink = rebuildFormLink(); 
-                document.getElementById('registerLink').outerHTML = '<a href="' + formLink + '">' + 'Registration Link';//update selection coords to be sent with form
+//                html = document.getElementById('registerLink'); 
+//                document.getElementById('registerLink').outerHTML = '<p><span>Registration Link: </span><input type="button" onclick=' + '"loc/**/ation.href=' + '"' + formLink + '"; value="Open Form" />' + '</p>';//update selection coords to be sent with form
+                
+                document.getElementById('step2').innerHTML = 'Go to the submission form:<br>'
+                                                                    + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
+//                document.getElementById('openFormButton')._input.focus();
+
             
             }); //giving access to the location of the found
                     
@@ -501,6 +602,12 @@
         }
             
 
+            
+        function clearRegistrationSteps () {
+            document.getElementById('registrationSteps').innerHTML = '';
+            selectorValues.coords = 'placeholder';
+            selectorValues.city = 'placeholder';
+        }
 
 
     </script>

@@ -81,25 +81,22 @@ var homePanelContent = {
     tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situation, and experiences.</h3></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><a id="registerLink" onclick="openGeoSearch(this);">Register</a></div><div><h4 class="sidebarh4">Author&#39s Note:</h4>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated with or supported by any University/Government/Organization or such body.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br><i>~Brandon Serrao.</i></div><p><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',    position: 'top',
-};
-/*
-var homePanelContent = {
-    id: 'home',
-    tab: '<i class="fa fa-home"></i>',
-    title:'T&T Lockout Map',
-//    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h2 class="sidebarh2">A map of stranded nationals, their situation, and experiences.</h2></div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div><h3 class="sidebarh3">About</h3><div id="about_container"><p>Register linktext leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button><a id="registerLink" onclick="openGeoSearch(this);">Register</a></div><div><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div>',
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situation, and experiences.</h3></div>' +
+    '<div class="alert"><b>The official Government Exemption Application System is available here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
+    + '<div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div></div>'
+    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>To submit your data to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div>" 
+    + '<div><h4 class="sidebarh4">Author&#39s Note:</h4>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br><i>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
     position: 'top',
-};*/
+};
 
-function openGeoSearch(element) {
-    element.outerHTML = '<p id="registerLink">Find your nearest location using the search bar.</p>';
+
+function openGeoSearch() {
+    document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
 //    element.onclick = 'onGeocoderSelect(this);';
     geocoderControl.addTo(myMap)
-        .show()
-        //.focus()
-    ;
+//        .show()
+        .focus()
+//    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
 }
 
 
