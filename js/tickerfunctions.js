@@ -30,17 +30,17 @@ function randomFeature() { //replaces randomEntry
 };
 
 //returns random section of string of input length
-function randomSnippet(marker, n) {
+function randomSnippet(marker, len) {
     let s = marker.feature.properties.story;
-    if (s.length >= n) {
-    let i = Math.floor(Math.random() * (s.length - n));
+    if (s.length >= len) {
+    let i = Math.floor(Math.random() * (s.length - len));
 
-    let snippet = s.slice(i, i+n);
+    let snippet = s.slice(i, i+len);
         console.log(snippet.length);
     if 
         (i !== 0) { snippet = '...' + snippet;}
     if 
-        (i+n < s.length) { snippet += '...'}
+        (i+len < s.length) { snippet += '...'}
     
     return snippet;
     } else
@@ -53,16 +53,12 @@ function createTickerEntry() {
     marker = randomMarker();
     let id = marker._leaflet_id; //ID that can be passed to LayerGroup.getLayer(ID) to retreive the layer (i.e. marker) later
     let s = marker.feature.properties.story;
-
-    //container = L.DomUtil.get(tickerContainerId);
-    container = document.getElementById(tickerContainerId); //for testing
-//    container = L.DomUtil.get(tickerContainerId); //for testing
-    newTickerEntry = L.DomUtil.create('div','snippet',container);
-//    newTickerEntry.innerHTML = '<template>' + c + '</template>' + '<p>' + randomSnippet(entry, snippetLength) + '</p>';
-    newTickerEntry.innerHTML = '<template>' + id + '</template>' + '<li><span class="snippet_text">' + randomSnippet(marker, snippetLength) + '</span></li>';
-//    newTickerEntry.innerHTML = '<template>' + id + '</template>' + '<p>' + randomSnippet(marker, snippetLength) + '</p>';
-
-    newTickerEntry.setAttribute("onclick", "onTickerItemClick(this)");
+    container = document.getElementById(tickerContainerId);
+    
+    newTickerEntry = L.DomUtil.create('li','snippet',container);
+    newTickerEntry.innerHTML = '<template>' + id + '</template>' + randomSnippet(marker, snippetLength);
+    
+        newTickerEntry.setAttribute("onclick", "onTickerItemClick(this)");
     
     return newTickerEntry;
 };
@@ -91,33 +87,14 @@ function onTickerItemClick(element) {
     return leafletID;
     };
 
-function onTickerItemRightClick(element) { //just alternative for testing panning motion options
-    console.log('onTickerItemRightClick Fired: element');
-    console.log(element);
-    console.log('getting leafletID from inside template tag');
-    let leafletID = element.getElementsByTagName('template')[0].innerHTML;
-    console.log(leafletID)
-    
-    //refocusing on marker to show the popup
-    let l = markers.getLayer(leafletID);
-//    myMap.setView(l.getLatLng());
-//    myMap.panTo(l.getLatLng());
-    myMap.once('zoomend', function() {l.openPopup()});
-    myMap.panTo(l.getLatLng());
-//    myMap.flyTo(l.getLatLng());
-    //myMap.setZoom(myMap.getMaxZoom());
-    //probably should bind the full story content to the popup at this point
-    //or change the popup content to whatever info you want to display when they click on a snippet
-//    myMap.once('zoomend', l.openPopup());
-    //myMap.zoomIn(4);
-    //l.openPopup();
-    console.log(l.getLatLng());
-    return leafletID;
-    };
 
 //fills ticker with n number of random snippets
 function fillTicker(n) {
+    console.log('filling ticker with ' + n.toString() + ' snippets');
     for (i = 0; i < n; i++) {
         createTickerEntry();
     }
+//    var ticker = new Ticker( "ticker" );
 }
+
+function refillTicker() {};

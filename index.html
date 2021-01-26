@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         
-        <title>Testing Map for TT Lockout Map</title>
+        <title>TT Lockout Map</title>
         
         <!-- Leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -36,99 +36,17 @@
         <link rel="stylesheet" href="plugins/Leaflet.Geonames/L.Control.Geonames.css" />
         <script src="plugins/Leaflet.Geonames/L.Control.Geonames.min.js"></script>
         
-<!--        my ticker code-->
+
+        <script type="text/javascript" src='js/constants.js'></script>
+        <script type="text/javascript" src='js/options.js'></script>
+        
+        <!--        my ticker code-->
         <script src='js/tickerfunctions.js'></script>
+        <link rel="stylesheet" href="my_ticker/my_ticker.css" />
+        <script src='my_ticker/my_ticker.js'></script>
 
         
-        
-        
-        
-<!--        <style>
 
-            body{
-                padding: 0;
-                margin: 0;
-            }
-            html, body{
-                height: 100%;
-                width: 100vw;
-            }
-            #mapid {
-                height: 100vh;
-                width: 100vw;
-            }
-
-            
-            #mapinfo_container {
-                height: 30%;
-                max-height: 25%;
-            }
-            
-            #about_container {
-                height: 15%;
-                max-height: 20vh;
-            }
-            
-            #ticker {
-                width: 100%;
-                height: 50vh;
-/*                max-height: 50vh;**/
-                margin: 2em auto;
-            }
-            
-            #ticker-wrapper {
-                height: 100%;
-                width: 100%;
-                overflow: hidden;
-                position: relative;
-
-            }
-/*            destination div section for container html code in the sidebar*/
-            #ticker-wrapper-inner { 
-                height: 100%;
-                padding: 0;
-                margin: 0;
-/*                background-color: lightgray;*/
-                opacity: 0.8;
-/*                overflow-y: scroll;*/
-            }
-            
-            #ticker-wrapper-inner ul {
-                margin: 0;
-                padding: 0;
-                list-style: none;
-                width: 100%;
-                height: 800px;
-                position: relative;
-                transition: all 1500ms ease-in;
-            }
-                
-            #ticker-wrapper-inner li {
-                display: block;
-                height: 80px;
-                width: 100%;
-                margin-bottom: 0.3em;
-                position: relative;
-                }
-            
-            #ticker-wrapper li:nth-child(even) {
-                background: #f5f5f5;
-}
-            
-            .snippet_text {
-                color: brown;
-            }
-            .sidebarh2 {
-                
-            }
-            
-            .sidebarh3{
-                
-                
-            }
-            
-        </style>-->
-        
         <style>
                     body{
                 padding: 0;
@@ -144,6 +62,8 @@
                 height: 100%;
                 width: 100vw;
             }
+            
+            
             #mapid {
                 height: 100vh;
                 width: 100vw;
@@ -160,10 +80,13 @@
                 max-height: 20vh;
             }
             
+/*            
+            
             #ticker {
-                width: 100%;
+                border: solid;
+                border-color: black;
+                width: 80%%;
                 height: 40vh;
-/*                max-height: 50vh;*/
 
             }
             
@@ -172,14 +95,12 @@
                 overflow-y: scroll;
 
             }
-/*            destination div section for container html code in the sidebar*/
+
             #ticker-wrapper-inner { 
                 height: 100%;
                 padding: 0;
                 margin: 0;
-/*                background-color: lightgray;*/
                 opacity: 0.8;
-/*                overflow-y: scroll;*/
             }
             
             #ticker-wrapper-inner ul {
@@ -191,10 +112,14 @@
                 padding-left: 0;
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
-/*                width: 100%;*/
                 background-color: whitesmoke;
                     
                 }
+            */
+/*            should be the list items that are in the ticker and use the tickercode*/
+/*            .snippet { 
+                
+            }*/
             
             .snippet_text {
                 color: brown;
@@ -207,86 +132,21 @@
                 
                 
             }
+            
+            .sidebarh4 {
+                margin-top: 3em;
+                margin-bottom: 0.5em;
+            }
+            
         </style>
         
     </head>
     
     <body>
-        <template id='ticker_template'>
-            <div id="ticker">
-                    <div id="ticker-wrapper">
-                        <ul id="ticker-wrapper-inner">
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3 onclick='onTickerItemClick(this)'>Item #1</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3 onclick='onTickerItemClick(this)'>Item #2</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3 onclick='this.innerHTML="clicked!"'>Item #3</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #4</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #5</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #6</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #7</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #8</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #9</h3>
-                            </li>
-                            <li>
-                               <figure>
-                                <img src="http://placehold.it/80x80" alt="" />
-                               </figure>
-                               <h3>Item #10</h3>
-
-                        </ul>
-                    </div>
-                </div>	
-
-        </template>
-        
         
         
 
-        <script type="text/javascript" src='js/constants.js'></script>
-        <script type="text/javascript" src='js/options.js'></script>
+
         
         <!-- Map container-->
         <div id='mapid'></div>
@@ -327,18 +187,22 @@
             //END LEAFLET MAP CODE
             
 
+            //PLACEHOLDER CODE
+            var ticker;
             
             //SIDEBAR SETUP CODE
             var sidebar = L.control.sidebar(sidebarOptions).addTo(myMap);
             sidebar.addPanel(homePanelContent)
-            .open('home'); //open frontpage panel after adding
+//            .open('home'); //open frontpage panel after adding
             sidebar.addPanel(githubButton);
 //            sidebar.open('ticker'); //open ticker for debugging
             
             myMap.on('click', function() {
                 sidebar.close();
                 
-                document.getElementById('openFormButton').disabled = 'false';//update selection coords to be sent with form
+               var button = document.getElementById('openFormButton')
+               if (button) {button.setAttribute('disabled','false')}
+                else {console.log('no openFormButton exists yet')};//update selection coords to be sent with form
                 
             });
                         
@@ -460,12 +324,13 @@
                 selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
                 selectorValues.city = e.geoname.toponymName;
                 let formLink = rebuildFormLink(); 
-//                html = document.getElementById('registerLink'); 
-//                document.getElementById('registerLink').outerHTML = '<p><span>Registration Link: </span><input type="button" onclick=' + '"loc/**/ation.href=' + '"' + formLink + '"; value="Open Form" />' + '</p>';//update selection coords to be sent with form
+ 
+                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
+                sidebar.open('home');
                 
-                document.getElementById('step2').innerHTML = 'Go to the submission form:<br>'
-                                                                    + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
-//                document.getElementById('openFormButton')._input.focus();
+
+                
+                document.getElementById('openFormButton').scrollIntoView();
 
             
             }); //giving access to the location of the found
@@ -554,6 +419,8 @@
                 fillTicker(snippetCount);
                 console.log('filled Ticker as part of fetch');
             })
+                .then(function ()
+                      {ticker = new Ticker("ticker")})
                 .catch(function(error) {
                 console.log('Request failed', error);
             });
@@ -609,6 +476,12 @@
             selectorValues.city = 'placeholder';
         }
 
+            
+        document.addEventListener( "DOMContentLoaded", function() {
+            sidebar.open('home');
+//		var news = new Ticker( "ticker" );
+
+	});
 
     </script>
 

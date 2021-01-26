@@ -44,7 +44,7 @@ var geocoderControlOptions = {
 };
 
 var tickerControlOptions = {
-    position: 'bottomleft'
+    position: 'bottomright'
 }
 
 var pulseIconOptions = {
@@ -69,7 +69,7 @@ var clusterMarkerOptions = {
 
 
 var sidebarOptions = {
-    autopan: true,       // whether to maintain the centered map point when opening the sidebar
+//    autopan: true,       // whether to maintain the centered map point when opening the sidebar
     closeButton: true,    // whether t add a close button to the panes
 //    container: 'tickerdiv', // the DOM container or #ID of a predefined sidebar container that should be used
     container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
@@ -78,23 +78,27 @@ var sidebarOptions = {
     
 var homePanelContent = {
     id: 'home',
-    tab: '<i class="fa fa-home"></i>',
+    tab: '<i class="fa fa-bars"></i>',
+//    tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situation, and experiences.</h3></div>' +
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situations, and experiences.</h3></div>' +
     '<div class="alert"><b>The official Government Exemption Application System is available here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
-    + '<div><h3 class="sidebarh3">Ticker - Story Snippets</h3><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div></div>'
-    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>To submit your data to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div>" 
-    + '<div><h4 class="sidebarh4">Author&#39s Note:</h4>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br><i>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
+    + '<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
+    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Were you or are you a stranded national?<br>To submit your info to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div>" 
+    + '<div><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
     position: 'top',
 };
 
 
 function openGeoSearch() {
     document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
+//    element.onclick = 'onGeocoderSelect(this);';
     sidebar.close();
     geocoderControl.addTo(myMap)
+//        .show()
         .focus()
+//    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
 }
 
 
@@ -104,31 +108,11 @@ var githubButton = {
     button:'https://github.com/brandonserrao/legendary-barnacle',
     position: 'bottom',
 };
-/*
-
-var storyTickerContent = {
-    id: 'ticker',
-    tab: '<i class="fa fa-comments"></i>',
-    //title:'Stories',
-//    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
-    //'<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"><li>placeholder ticker html string</li></ul></div></div>'
-//    pane:'<h2>Content Header</h2><p>TODO: CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</p>',
-    pane: '<div><h1>Snippet Ticker Tab</h1><p>Button adds an entry to the list below.<br>Clicking on the text should move you to the location and open up a popup with the full text.</p><h3>TODO:</h3><ul><li>fix zooming in and breaking apart clusters to successfully open popups.</li><li>Get CSS Autoscrolling animation working for the ticker.</li><li>Add childCount to larger cluster icons (maybe)?</li><li>Fill Home tab with info/splash text, and update with official/useful links</li><button onclick="createTickerEntry()">createTickerEntry()</button><button onclick="fillTicker(snippetCount)">fillTicker(snippetCount)</button></div><div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
-
-};
-
-var testContent = {
-    id: 'test',
-    tab: '<i class="fa fa-circle"></i>',
-    title:'TickerTesting',
-    pane: document.getElementById('ticker_template').innerHTML,
-};
 
 var formTabContent = {
     id: 'form',
     tab: '<i class="fa fa-bars"></i>',
     //title:'Stories',
-    pane:'<h2>TODO:</h2><h3>CREATE UPDATING+SCROLLING TICKER OF STORY SNIPPETS, LINKED TO LOCATION-GOTO LOCATION ONCLICK</h3>'
+    pane:'placeholder to be replaced'
 };
 
-*/

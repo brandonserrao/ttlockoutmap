@@ -16,11 +16,12 @@ var formEntryCodes = { //to be used for
 
 //control of snippet length
 var snippetLength = 180 ;//based on twitter old length
+var snippetsTotal = 50; //number of snippets to load
+var scrollTimeIncr = 5000 //time before scrolling to next snippet; not used, change manually in (my_)ticker.js .tick
 
-var tickerContainerId = 'ticker-wrapper-inner'//'ticker-wrapper-inner';
-//var tickerContainerId = 'ticker_container'//'ticker-wrapper-inner';
-var snippetCount = 50;
+//var tickerContainerId = 'ticker-wrapper-inner'
+var tickerContainerId = 'ticker-wrapper-inner'
 
-var selectorOn = false;
+var selectorOn = false; //testing draggable location selector
 
 
