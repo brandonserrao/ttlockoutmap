@@ -80,46 +80,10 @@
                 max-height: 20vh;
             }
             
-/*            
-            
-            #ticker {
-                border: solid;
-                border-color: black;
-                width: 80%%;
-                height: 40vh;
 
-            }
-            
-            #ticker-wrapper {
-                max-height: 100%;
-                overflow-y: scroll;
-
-            }
-
-            #ticker-wrapper-inner { 
-                height: 100%;
-                padding: 0;
-                margin: 0;
-                opacity: 0.8;
-            }
-            
-            #ticker-wrapper-inner ul {
-                list-style-type: none;
-            }
+            .snippet { 
                 
-            #ticker-wrapper-inner li {
-                margin: 0.5em;
-                padding-left: 0;
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-                background-color: whitesmoke;
-                    
-                }
-            */
-/*            should be the list items that are in the ticker and use the tickercode*/
-/*            .snippet { 
-                
-            }*/
+            }
             
             .snippet_text {
                 color: brown;
@@ -189,6 +153,7 @@
 
             //PLACEHOLDER CODE
             var ticker;
+//            const snippetTotal = 50;
             
             //SIDEBAR SETUP CODE
             var sidebar = L.control.sidebar(sidebarOptions).addTo(myMap);
@@ -416,7 +381,8 @@
                 //console.log('Request succeeded with JSON response', data);
                 storePersonData(toGeoJSONFeatureCollection(data.values));
                 loadData(personData, personLayer);
-                fillTicker(snippetCount);
+//                fillTicker(snippetCount);
+                fillTicker(snippetTotal);
                 console.log('filled Ticker as part of fetch');
             })
                 .then(function ()
