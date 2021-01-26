@@ -75,8 +75,14 @@ function onTickerItemClick(element) {
     let l = markers.getLayer(leafletID);
 //    myMap.setView(l.getLatLng());
 //    myMap.panTo(l.getLatLng());
-    myMap.once('zoomend', function() {l.openPopup()});
-    myMap.flyTo(l.getLatLng());
+    
+    myMap.once('zoomend', function() {
+        l.openPopup();
+        
+    });
+    //myMap.flyTo(l.getLatLng());
+    
+    markers.zoomToShowLayer(l, null); //: Zooms to show the given marker (spiderfying if required), calls the callback when the marker is visible on the map.
     //myMap.setZoom(myMap.getMaxZoom());
     //probably should bind the full story content to the popup at this point
     //or change the popup content to whatever info you want to display when they click on a snippet

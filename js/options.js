@@ -20,6 +20,8 @@ var panOptions = {
     easeLinearity: 0.25,
 };
 
+
+
 var geocoderControlOptions = {
     position: 'topleft', // In addition to standard 4 corner Leaflet control layout, this will position and size from top center.
     geonamesSearch: 'https://secure.geonames.org/searchJSON', // Override this if using a proxy to get connection to geonames.
@@ -85,10 +87,11 @@ var homePanelContent = {
     pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situations, and experiences.</h3></div>' +
     '<div class="alert"><b>The official Government Exemption Application System is available here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
     + '<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
-    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Were you or are you a stranded national?<br>To submit your info to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div>" 
-    + '<div><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
+    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Were you or are you a stranded national?<br>To submit your info to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div></div>" 
+    + '<div id="disclaimer_container"><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
     position: 'top',
 };
+
 
 
 function openGeoSearch() {

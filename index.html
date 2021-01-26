@@ -72,14 +72,18 @@
             
             #mapinfo_container {
                 height: 30%;
-                max-height: 25%;
+                max-height: 40vh;
             }
             
             #about_container {
-                height: 15%;
-                max-height: 20vh;
+                height: 20%;
+                max-height: 25vh;
             }
             
+            #disclaimer_container {
+                height: 20%;
+                max-height: 20%;
+            }
 
             .snippet { 
                 
@@ -93,7 +97,7 @@
             }
             
             .sidebarh3{
-                
+                margin-bottom: 0.5em;
                 
             }
             
@@ -163,6 +167,10 @@
 //            sidebar.open('ticker'); //open ticker for debugging
             
             myMap.on('click', function() {
+/*                //taken from the sidebar code
+                if (!L.DomUtil.hasClass(sidebar._container, 'collapsed')) {sidebar.close};
+                else {};*/
+                
                 sidebar.close();
                 
                var button = document.getElementById('openFormButton')
