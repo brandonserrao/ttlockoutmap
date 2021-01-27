@@ -80,18 +80,19 @@ function onTickerItemClick(element) {
 //    myMap.once('zoomend', function() {l.openPopup()})
     //myMap.flyTo(l.getLatLng());
     
-    markers.zoomToShowLayer(l, function() {l.togglePopup()}); //: Zooms to show the given marker (spiderfying if required), calls the callback when the marker is visible on the map.
-//    l.togglePopup();
-//    l.openPopup();
-
+    markers.zoomToShowLayer(l, function() {
+//        l.togglePopup();
+        l.togglePopup();
+        
+/*        let p = l.getPopup();
+        console.log(p.getContent());
+        myMap.panTo(p.getLatLng());
+        l.openPopup();*/
+        
+    }); //: Zooms to show the given marker (spiderfying if required), calls the callback when the marker is visible on the map.
     //myMap.setZoom(myMap.getMaxZoom());
     //probably should bind the full story content to the popup at this point
     //or change the popup content to whatever info you want to display when they click on a snippet
-//    myMap.once('zoomend', l.openPopup());
-    //myMap.zoomIn(4);
-//    l.openPopup();
-    
-//    console.log(l.getLatLng());
     return leafletID;
     };
 

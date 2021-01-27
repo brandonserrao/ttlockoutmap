@@ -22,6 +22,7 @@ var panOptions = {
 
 var storyPopupOptions = {
     maxHeight: 600,
+    keepInView: true
 }
 
 var geocoderControlOptions = {
@@ -104,6 +105,7 @@ function openGeoSearch() {
 //        .show()
         .focus()
 //    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
+    alert("Use the searchbar to find your nearest city, then follow the button to the submission form.")
 }
 
 
