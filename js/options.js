@@ -87,7 +87,7 @@ var homePanelContent = {
 //    tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">(CURRENTLY COLLECTING PRELIMINARY DATA)A map of stranded nationals, their situations, and experiences.</h3></div>' +
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">(CURRENTLY COLLECTING PRELIMINARY DATA)<br>A map of stranded nationals, their situations, and experiences.</h3></div>' +
     '<div class="alert"><b>The official Government Exemption Application System is available here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
     + '<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
     + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Were you or are you a stranded national?<br>To submit your info to this map:</p>' + "<a id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div></div>" 
