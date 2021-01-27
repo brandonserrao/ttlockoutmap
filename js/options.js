@@ -20,7 +20,9 @@ var panOptions = {
     easeLinearity: 0.25,
 };
 
-
+var storyPopupOptions = {
+    maxHeight: 600,
+}
 
 var geocoderControlOptions = {
     position: 'topleft', // In addition to standard 4 corner Leaflet control layout, this will position and size from top center.

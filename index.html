@@ -441,7 +441,9 @@
 //            outputString += '<b>' + feature.properties.status + '</b>';
             outputString += feature.properties.story;
             //console.log(feature);
-            layer.bindPopup(outputString);
+            layer.bindPopup(outputString,
+                           storyPopupOptions, //
+                           );
         }
             
 
