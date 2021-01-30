@@ -51,6 +51,10 @@ function randomSnippet(marker, len) {
 function createTickerEntry() {
     
     marker = randomMarker();
+    while (marker.feature.properties.story == storyPlaceholder
+           || marker.feature.properties.story == undefined) {
+        marker = randomMarker();
+    }
     let id = marker._leaflet_id; //ID that can be passed to LayerGroup.getLayer(ID) to retreive the layer (i.e. marker) later
     let s = marker.feature.properties.story;
     container = document.getElementById(tickerContainerId);
