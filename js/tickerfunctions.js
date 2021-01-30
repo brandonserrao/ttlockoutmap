@@ -1,8 +1,8 @@
+//unused; experiment with creating custom leaflet control
+/*
 L.Control.Ticker = L.Control.extend({
     onAdd: function(map) {
         var div = L.DomUtil.create('div');
-/*        div.style.width = '100vw';
-        div.style.height = '20vh';*/
         div.id = tickerContainerId;
         div.innerHTML='<p>This is a paragraph element with this text inside of it./p>';
         return div;
@@ -17,6 +17,7 @@ L.Control.Ticker = L.Control.extend({
 L.control.ticker = function(opts) {
     return new L.Control.Ticker(opts);
 }
+*/
 
 //returns random marker from the input (L.markerClusterGroup); markers will allow accessing popups etc
 function randomMarker() {

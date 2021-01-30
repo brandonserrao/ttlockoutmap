@@ -21,8 +21,8 @@ var panOptions = {
 };
 
 var storyPopupOptions = {
-    maxHeight: 600,
-    keepInView: true
+    maxHeight: 450,
+//    keepInView: true
 }
 
 var geocoderControlOptions = {
@@ -41,7 +41,7 @@ var geocoderControlOptions = {
     adminCodes: {}, // Filter results by the specified admin codes mentioned in `ADMIN_CODES`. Each code can be a string or a function returning a string. `country` can be a comma-separated list of countries.
     bbox: {}, // An object in form of {east:..., west:..., north:..., south:...}, specifying the bounding box to limit the results to.
     lang: 'en', // Locale of results.
-    alwaysOpen: false, // If true, search field is always visible.
+    alwaysOpen: true, // If true, search field is always visible.
     enablePostalCodes: false, // If true, use postalCodesRegex to test user provided string for a postal code.  If matches, then search against postal codes API instead.
     postalCodesRegex: POSTALCODE_REGEX_US, // Regex used for testing user provided string for a postal code.  If this test fails, the default geonames API is used instead.
     title: 'Search by location name or postcode', // Search input title value.
@@ -49,6 +49,10 @@ var geocoderControlOptions = {
 };
 
 var tickerControlOptions = {
+    position: 'bottomright'
+}
+
+var myControlOptions = {
     position: 'bottomright'
 }
 
@@ -87,22 +91,36 @@ var homePanelContent = {
 //    tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">(CURRENTLY COLLECTING PRELIMINARY DATA)<br>A map of stranded nationals, their situations, and experiences.</h3></div>' +
-    '<div class="alert"><b>The official Government Exemption Application System is available here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situations, and experiences.</h3></div>' 
+    
+    + '<div><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Are you a stranded national? Were you?<br>Submit your info: ' + "<a style='cursor:pointer;' id='registerLink' onclick='openGeoSearch();'>To Register</a></p>" + "<br><ol id='registrationSteps'></ol></div></div>" 
+    
+    +'<div class="alert"><b>Find the official Exemption Application System here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
+    
     + '<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
-    + '<div><h3 class="sidebarh3">About</h3><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Were you or are you a stranded national?<br>To submit your info to this map:</p>' + "<a style='cursor:pointer;' id='registerLink' onclick='openGeoSearch();'>To Register</a><br><ol id='registrationSteps'></ol></div></div>" 
-    + '<div id="disclaimer_container"><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated or supported with any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
+    
+    + '<div id="disclaimer_container"><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated with or supported by any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
+    
     position: 'top',
 };
 
 
 
 function openGeoSearch() {
-    document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
-//    element.onclick = 'onGeocoderSelect(this);';
+//    document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
+//    //element.onclick = 'onGeocoderSelect(this);';
+//    sidebar.close();
+//    geocoderControl.addTo(myMap)
+//        .show()
+//        .focus()
+//    //element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
+//    alert("Use the searchbar to find your nearest city, then follow the button to the submission form.")
+    
+    //adding code to use a leaflet control instead
+    mycontrol = L.control.myControl(myControlOptions).addTo(myMap);
+    document.getElementById('myControl').innerHTML = '<ol><li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li></ol>';
     sidebar.close();
     geocoderControl.addTo(myMap)
-//        .show()
         .focus()
 //    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
     alert("Use the searchbar to find your nearest city, then follow the button to the submission form.")

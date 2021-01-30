@@ -48,7 +48,7 @@
         
 
         <style>
-                    body{
+            body{
                 padding: 0;
                 margin: 0;
                     
@@ -106,6 +106,9 @@
                 margin-bottom: 0.5em;
             }
             
+            #myControl {
+                background-color: lightgrey;
+            }
         </style>
         
     </head>
@@ -186,6 +189,7 @@
             //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
             //init empty variable
             var formLink = '';
+            var mycontrol; //to hold custom leaflet control with registration instructions
                         
             var selectorValues = { //init container for for location selector values
                     city : 'placeholder',
@@ -281,16 +285,19 @@
             }
             
             
-            function openPrefilledForm(link) {//TODO: tied to button click currently
+            function openPrefilledForm(link) {
                 document.getElementById('registrationSteps').innerHTML = '';
-                geocoderControl.remove();
+                geocoderControl.removeMarker(); //geocoder raises errors/marker misses chance to remove if not done
+                mycontrol._container.hidden=true;
+//                myMap.fire('click');
                 window.open(formLink,"_blank");
+                //need to reset the custom control
             }
             
             
             //END GOOGLE FORM AND SELECTOR CODE
             
-            
+            var event;
             //GEOCODER CODE
             var geocoderControl = L.control.geonames(geocoderControlOptions)//.addTo(myMap)
             ;
@@ -298,14 +305,14 @@
                 console.log(e.geoname);
                 selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
                 selectorValues.city = e.geoname.toponymName;
-                let formLink = rebuildFormLink(); 
- 
-                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
+                let formLink = rebuildFormLink();           
+                
+                //old process; replacing with a custom leaflet control
+/*                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
                 sidebar.open('home');
-                
-
-                
-                document.getElementById('openFormButton').scrollIntoView();
+                document.getElementById('openFormButton').scrollIntoView();*/
+                if (mycontrol) { mycontrol._container.hidden = false;}
+                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>';
 
             
             }); //giving access to the location of the found
@@ -458,6 +465,28 @@
             selectorValues.coords = 'placeholder';
             selectorValues.city = 'placeholder';
         }
+            
+        
+
+        //for adding my custom control to map
+        L.control.myControl = function(options) {
+            return new L.Control.MyControl(options);
+        }    
+        
+        L.Control.MyControl = L.Control.extend({
+            onAdd: function(map) {
+                var div = L.DomUtil.create('div');
+                div.id = 'myControl';
+                div.innerHTML='<p>Placeholder content for myControl.</p>';
+                return div;
+            },
+
+            onRemove: function(map) {
+                //don't do anything; onRemove required to be valid apparently
+            }
+
+        });
+
 
             
         document.addEventListener( "DOMContentLoaded", function() {

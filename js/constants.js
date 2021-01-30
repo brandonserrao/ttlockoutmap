@@ -19,7 +19,6 @@ const snippetLength = 180 ;//based on twitter old length
 const snippetTotal = 50; //number of snippets to load
 const scrollTimeIncr = 5000 //time before scrolling to next snippet; not used, change manually in (my_)ticker.js .tick
 
-//var tickerContainerId = 'ticker-wrapper-inner'
 const tickerContainerId = 'ticker-wrapper-inner'
 
 const selectorOn = false; //testing draggable location selector
