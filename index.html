@@ -439,7 +439,12 @@
         function onEachFeature (feature, layer) {
             let outputString = '';
 //            outputString += '<b>' + feature.properties.status + '</b>';
-            outputString += feature.properties.story;
+            if (feature.properties.story == undefined) {
+                feature.properties.story = storyPlaceholder;
+            }
+            outputString += '<p class="popupName">' + feature.properties.name + '</p>';
+            outputString += '<p class="popupStatus">' + feature.properties.status + '</p>';
+            outputString += '<p class="popupStory">' + feature.properties.story + '</p>';
             //console.log(feature);
             layer.bindPopup(outputString,
                            storyPopupOptions, //
