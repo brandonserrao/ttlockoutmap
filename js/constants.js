@@ -25,3 +25,5 @@ const tickerContainerId = 'ticker-wrapper-inner'
 const selectorOn = false; //testing draggable location selector
 
 
+
+const storyPlaceholder = 'No Story Submitted';
