@@ -53,7 +53,8 @@ var tickerControlOptions = {
 }
 
 var myControlOptions = {
-    position: 'bottomright'
+//     position: 'bottomright'
+    position: 'topleft' //to make it more apparent by putting it next to the searchbar
 }
 
 var pulseIconOptions = {
