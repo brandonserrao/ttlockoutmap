@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        
+
         <title>TT Lockout Map</title>
-        
+
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="style.css"/>
+
         <!-- Leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
               integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -15,135 +19,59 @@
 
         <!-- PapaParse -->
         <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
-        
+
         <!-- leaflet-pulse-icon-->
         <script src="plugins/leaflet-icon-pulse/dist/L.Icon.Pulse.js"></script>
         <link rel="stylesheet" href="plugins/leaflet-icon-pulse/dist/L.Icon.Pulse.css"/>
-        
+
         <!-- Leaflet.markercluster-->
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/><!--not needed if you use your own iconCreateFunction instead of this default one-->
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster-src.js"></script>
-        
-        <!--sidebar files-->
+
+        <!--Sidebar-->
         <script src="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.js"></script>
         <link rel="stylesheet" href="plugins/leaflet-sidebar-v2/leaflet-sidebar.min.css"/>
 
-<!--        font awesome-->
+        <!--font awesome-->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        
-<!--        leaflet.geonames-->
+
+        <!--leaflet.geonames-->
         <link rel="stylesheet" href="plugins/Leaflet.Geonames/L.Control.Geonames.css" />
         <script src="plugins/Leaflet.Geonames/L.Control.Geonames.min.js"></script>
-        
 
-        <script type="text/javascript" src='js/constants.js'></script>
-        <script type="text/javascript" src='js/options.js'></script>
-        
-        <!--        my ticker code-->
-        <script src='js/tickerfunctions.js'></script>
+        <!--Story Ticker code-->
+        <script src='my_ticker/tickerfunctions.js'></script>
         <link rel="stylesheet" href="my_ticker/my_ticker.css" />
         <script src='my_ticker/my_ticker.js'></script>
 
-        
+        <!-- Variables-->
+        <script type="text/javascript" src='js/constants.js'></script>
+        <script type="text/javascript" src='js/options.js'></script>
 
-        <style>
-            body{
-                padding: 0;
-                margin: 0;
-                    
-            }
-            
-            #registerLink {
-                text-decoration: underline;
-            }
-            
-            html, body{
-                height: 100%;
-                width: 100vw;
-            }
-            
-            
-            #mapid {
-                height: 100vh;
-                width: 100vw;
-            }
-
-            
-            #mapinfo_container {
-                height: 30%;
-                max-height: 40vh;
-            }
-            
-            #about_container {
-                height: 20%;
-                max-height: 25vh;
-            }
-            
-            #disclaimer_container {
-                height: 20%;
-                max-height: 20%;
-            }
-
-            .snippet { 
-                
-            }
-            
-            .snippet_text {
-                color: brown;
-            }
-            .sidebarh2 {
-                
-            }
-            
-            .sidebarh3{
-                margin-bottom: 0.5em;
-                
-            }
-            
-            .sidebarh4 {
-                margin-top: 3em;
-                margin-bottom: 0.5em;
-            }
-            
-            #myControl {
-                background-color: lightgrey;
-            }
-        </style>
-        
     </head>
-    
+
     <body>
-        
-        
 
-
-        
         <!-- Map container-->
         <div id='mapid'></div>
+
         <!-- Map script-->
         <script>
-            
-            
-            //LEAFLET MAP CODE
-            //init map variable//
-            var myMap = L.map('mapid', mapOptions)//.setView([0,0], 2)
 
-            //add map layer the map via methods//
-            var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//                maxZoom: 19,
+            //init map variables and layers//
+            const myMap = L.map('mapid', mapOptions)
+            //.setView([0,0], 2)
+
+            const OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
-            
-            var Stamen_TonerBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
+            const Stamen_TonerBackground = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
-//                minZoom: 0,
-//                maxZoom: 20,
                 ext: 'png'
             });
-
-            var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+            const Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 subdomains: 'abcd',
                 minZoom: 2,
@@ -154,348 +82,15 @@
             //Stamen_TonerBackground.addTo(myMap);
             //OpenStreetMap_Mapnik.addTo(myMap);
             Stamen_TonerLite.addTo(myMap);
-            
-            //END LEAFLET MAP CODE
-            
 
-            //PLACEHOLDER CODE
-            var ticker;
-//            const snippetTotal = 50;
-            
-            //SIDEBAR SETUP CODE
-            var sidebar = L.control.sidebar(sidebarOptions).addTo(myMap);
-            sidebar.addPanel(homePanelContent)
-//            .open('home'); //open frontpage panel after adding
-            sidebar.addPanel(githubButton);
-//            sidebar.open('ticker'); //open ticker for debugging
-            
-            myMap.on('click', function() {
-/*                //taken from the sidebar code
-                if (!L.DomUtil.hasClass(sidebar._container, 'collapsed')) {sidebar.close};
-                else {};*/
-                
-                sidebar.close();
-                
-               var button = document.getElementById('openFormButton')
-               if (button) {button.setAttribute('disabled','false')}
-                else {console.log('no openFormButton exists yet')};//update selection coords to be sent with form
-                
-            });
-                        
-            
-            //END SIDEBAR SETUP CODE
-            
-            
-            //GOOGLE FORM PREFILLING AND LOCATION SELECTOR CODE
-            //init empty variable
-            var formLink = '';
-            var mycontrol; //to hold custom leaflet control with registration instructions
-                        
-            var selectorValues = { //init container for for location selector values
-                    city : 'placeholder',
-                    coords : 'placeholder',
-                }
-            
-            //call function to make a valid link with placeholder info
-            rebuildFormLink();
-            
-            //making selector marker
-            locationSelector = L.marker([0,0], {
-                                    draggable: true,
-                                    autoPan: true,
-                                })
-//            .addTo(myMap)
-            .bindPopup('<p>alles gut</p>')
-            .on('moveend', onMoveEnd)
-            .on('click', onClick)
-            //.on('dblclick', onDblClick)
-            .on('movestart', onMoveStart)
-            .on('mouseover', onMouseOver)
-            .on('mouseout', onMouseOut)
-            //.on('add', onAdd)
-            //.on('remove', onRemove)
-            //.on('popupopen', onPopupOpen)
-            //.on('popupclose', onPopupClose)
-            //.on('contextmenu', onContextMenu)
-            ;
-            
-            if (selectorOn) {
-                locationSelector.addTo(myMap);
-            }
-            //check the docs for details on the triggers
-            function onMoveStart(e) {
-                console.log('movestart');
-                this.setPopupContent('*<b>SCREAMS</b>*');
-                this.openPopup()
-                selectorValues.coords='moving';
-            }
-            function onMoveEnd(e) {
-                console.log('onmoveend');
-                let latlng = this.getLatLng();
-                console.log(latlng);
-                selectorValues.coords=latlng.lat.toString()+','+latlng.lng.toString();
-                rebuildFormLink();
-                console.log('formLink: ' + formLink);
-                this.closePopup();
-            }
-            
-            function onClick(e) {
-                console.log('onclick');
-                console.log(e);
-            }
-            
-            function onMouseOver(e) {
-                console.log('mouseover');
-                this.setOpacity(0.3);
-            }
-            function onMouseOut(e) {
-                console.log('mouseout');
-                this.setOpacity(1);
-            }
-            
-            function onDblClick(e) {
-                console.log(this.remove());
-                console.log('ondblclick removed');
-            }
-            
-            function onRemove(e) {
-                console.log('location selector removed');
-            }
-            function onAdd(e) {
-                console.log('location selector added');
-            }
-            function onPopupOpen(e) {
-                console.log('popup opened');
-            }
-            function onPopupClose(e) {
-                console.log('popup closed');
-            }
-            function onContextMenu(e) {
-                console.log('rightclicked aka contextmenu')
-            }
-            
+            //END LEAFLET MAP CODE//
+            </script>
 
+            <script src="sidebar.js"></script>
 
-            function rebuildFormLink() { //TODO: Trigger this when a selector marker is repositioned
-                let link = googleFormBaseURL
-                                +'&entry.'+formEntryCodes.city+'='+selectorValues.city
-                                +'&entry.'+formEntryCodes.coords+'='+selectorValues.coords
-                formLink = link;
-                return formLink;
-            }
-            
-            
-            function openPrefilledForm(link) {
-                document.getElementById('registrationSteps').innerHTML = '';
-                geocoderControl.removeMarker(); //geocoder raises errors/marker misses chance to remove if not done
-                mycontrol._container.hidden=true;
-//                myMap.fire('click');
-                window.open(formLink,"_blank");
-                //need to reset the custom control
-            }
-            
-            
-            //END GOOGLE FORM AND SELECTOR CODE
-            
-            var event;
-            //GEOCODER CODE
-            var geocoderControl = L.control.geonames(geocoderControlOptions)//.addTo(myMap)
-            ;
-            geocoderControl.on('select', function(e) {
-                console.log(e.geoname);
-                selectorValues.coords = e.geoname.lat + "," + e.geoname.lng;
-                selectorValues.city = e.geoname.toponymName;
-                let formLink = rebuildFormLink();           
-                
-                //old process; replacing with a custom leaflet control
-/*                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>'
-                sidebar.open('home');
-                document.getElementById('openFormButton').scrollIntoView();*/
-                if (mycontrol) { mycontrol._container.hidden = false;}
-                document.getElementById('step2').innerHTML = 'If the location is correct:<br>' + '<button id="openFormButton" type="button" onclick="openPrefilledForm(formLink)">Go to Form</button>';
+            <script src="locationSelection.js"></script>
 
-            
-            }); //giving access to the location of the found
-                    
-            //END GEOCODER CODE
-            
-            
-            //CLUSTER MARKER AND DATA FETCHING CODE
-            var pulseIcon = L.icon.pulse(pulseIconOptions);
-            var pulseIcon2 = L.icon.pulse(pulseIconOptions2);
-                        
-            var personData;
-            var personLayer = L.geoJSON(null,{
-                                        //pointToLayer: pointToLayer, //default is to spawn a ddefault Marker a la function(geoJson, latlng) {return L.marker(latlng);}
-                                        style: styleFunction,
-                                        onEachFeature: onEachFeature,
-                                        });
-            var markers = L.markerClusterGroup(clusterMarkerOptions);
-            
-            
-            //FUNCTION DEFINITIONS
-            //bind the data pulled in into the data variable
-            function storePersonData(data) {
-                console.log('stored personData');
-                personData = data;
-            }
-
-
-            console.log('reaching fetch api testing')
-            var apiUrl = 'https://sheets.googleapis.com/v4/spreadsheets/'
-            var spreadsheetId = googleDocURL.indexOf('/d/') > 0
-                                    ? googleDocURL.split('/d/')[1].split('/')[0]
-                                    : googleDocURL
-            var headers;//container for list of sheet headers
-            var headersDict={};
-                  
-            //taken from Chaining Promises https://developers.google.com/web/updates/2015/03/introduction-to-fetch
-            
-            function status(response) {
-              if (response.status >= 200 && response.status < 300) {
-                return Promise.resolve(response)
-              } else {
-                return Promise.reject(new Error(response.statusText))
-              }
-            }
-            
-            function json(response) {
-              return response.json()
-            }
-            
-            //construct geojson out of array of data from the google sheet
-            function toGeoJSONFeatureCollection(arrayOfRows) {//create spec-respecting collection of geojson points out of the data
-                var outputGeoJSON = {"type": "FeatureCollection",
-                                    "features": []
-                                    };
-                headers = arrayOfRows.shift(); //get rid of header row and store it 
-                for (let i = 0; i < headers.length; i++) { //construct headersDictionary to reference field
-                    headersDict[headers[i]] = i;
-                }
-                
-                arrayOfRows.forEach(function(row) {
-                    var feature = {"type": "Feature"};
-                    feature["geometry"] = {"type": "Point",
-                                          "coordinates": [//geoJSON spec is lng,lat as decimals and in that order
-                                              parseFloat(row[headersDict.lng]),
-                                              parseFloat(row[headersDict.lat])
-                                                         ]};
-                    feature["properties"] = {};
-                    for (let i = 2; i < headers.length; i++){
-                        feature["properties"][headers[i]] = row[i];
-                            }
-                    outputGeoJSON["features"].push(feature);
-                })
-                return outputGeoJSON;
-                };
-                
-            
-            //fetch(apiUrl + spreadsheetId + '?key=' + googleApiKey)
-            fetch(apiUrl + spreadsheetId + '/values/Points?key=' + googleApiKey)
-            .then(status)
-            .then(json)
-            .then(function(data) {
-                //console.log('Request succeeded with JSON response', data);
-                storePersonData(toGeoJSONFeatureCollection(data.values));
-                loadData(personData, personLayer);
-//                fillTicker(snippetCount);
-                fillTicker(snippetTotal);
-                console.log('filled Ticker as part of fetch');
-            })
-                .then(function ()
-                      {ticker = new Ticker("ticker")})
-                .catch(function(error) {
-                console.log('Request failed', error);
-            });
-            
-            
-            //
-            function loadData(data, leafletLayer) {
-                leafletLayer.addData(data.features);
-                
-                markers.addLayer(leafletLayer);
-                markers.eachLayer(function (layer) {
-                    layer.setIcon(pulseIcon2);
-                });
-                myMap.addLayer(markers);
-                //myMap.fitBounds(markers.getBounds());
-                //leafletLayer.addTo(myMap);
-            }
-
-        
-        //testing functions
-            
-        function pointToLayer(feature, latlng) {
-            return L.circleMarker(latlng, {
-                        radius: 8,
-                        weight: 1,
-                        fillOpacity: 1,
-                        fillColor: 'blue',
-                        color: 'black'
-                    })
-        }
-        
-        //obsoleted - was being used to affect the markers drawn by the geojson layer; markers now drawn by clustermakerlayer (var markers) and appearance controlled by options.js 
-        function styleFunction(feature) { 
-            switch (feature.properties.status) {
-                case 'waiting': return {fillColor: 'red'};
-                case 'granted': return {fillColor: 'green'};
-            }
-        }
-        
-        function onEachFeature (feature, layer) {
-            let outputString = '';
-//            outputString += '<b>' + feature.properties.status + '</b>';
-            if (feature.properties.story == undefined) {
-                feature.properties.story = storyPlaceholder;
-            }
-            outputString += '<p class="popupName">' + feature.properties.name + '</p>';
-            outputString += '<p class="popupStatus">' + feature.properties.status + '</p>';
-            outputString += '<p class="popupStory">' + feature.properties.story + '</p>';
-            //console.log(feature);
-            layer.bindPopup(outputString,
-                           storyPopupOptions, //
-                           );
-        }
-            
-
-            
-        function clearRegistrationSteps () {
-            document.getElementById('registrationSteps').innerHTML = '';
-            selectorValues.coords = 'placeholder';
-            selectorValues.city = 'placeholder';
-        }
-            
-        
-
-        //for adding my custom control to map
-        L.control.myControl = function(options) {
-            return new L.Control.MyControl(options);
-        }    
-        
-        L.Control.MyControl = L.Control.extend({
-            onAdd: function(map) {
-                var div = L.DomUtil.create('div');
-                div.id = 'myControl';
-                div.innerHTML='<p>Placeholder content for myControl.</p>';
-                return div;
-            },
-
-            onRemove: function(map) {
-                //don't do anything; onRemove required to be valid apparently
-            }
-
-        });
-
-
-            
-        document.addEventListener( "DOMContentLoaded", function() {
-            sidebar.open('home');
-//		var news = new Ticker( "ticker" );
-
-	});
-
-    </script>
+            <script src="dataFetching.js"></script>
 
     </body>
 </html>

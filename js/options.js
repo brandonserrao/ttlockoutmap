@@ -5,7 +5,7 @@ var mapOptions = {
     center: [11,-61],
     zoom: 3,
     maxBounds: [[80, -180],
-               [-80, 180]],  
+               [-80, 180]],
     noWrap: true,
     //maxBounds: [[85, -Infinity], [-85, Infinity]],//markers do not map to the horizontal space
     minZoom: 2,
@@ -58,8 +58,8 @@ var myControlOptions = {
 }
 
 var pulseIconOptions = {
-            iconSize:[20,20], 
-            color:'blue', 
+            iconSize:[20,20],
+            color:'blue',
             fillColor:'blue',
             animate: true,
             heartbeat: 2 //pulse frequency in seconds
@@ -85,47 +85,25 @@ var sidebarOptions = {
     container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
     position: 'left',     // left or right
 }
-    
+
 var homePanelContent = {
     id: 'home',
     tab: '<i class="fa fa-bars"></i>',
 //    tab: '<i class="fa fa-home"></i>',
     title:'T&T Lockout Map',
 //    pane:'<h2>Content Header</h2><p>Button leads to submission form.</p><br><button onclick="openPrefilledForm(formLink);">Open Form</button>',
-    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situations, and experiences.</h3></div>' 
-    
-    + '<div><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Are you a stranded national? Were you?<br>Submit your info: ' + "<a style='cursor:pointer;' id='registerLink' onclick='openGeoSearch();'>To Register</a></p>" + "<br><ol id='registrationSteps'></ol></div></div>" 
-    
+    pane:'<div id="mapinfo_container" class="sidebarsection"><h3 class="sidebarh3">A map of stranded nationals, their situations, and experiences.</h3></div>'
+
+    + '<div><div id="about_container"><p>This map is intended as a public communication tool, to allow the stories of those locked out to reach the public at home.<br>Are you a stranded national? Were you?<br>Submit your info: ' + "<a style='cursor:pointer;' id='registerLink' onclick='openGeoSearch();'>To Register</a></p>" + "<br><ol id='registrationSteps'></ol></div></div>"
+
     +'<div class="alert"><b>Find the official Exemption Application System here: </b><a href="https://services.mns.gov.tt/travelexemption" target="_blank">https://services.mns.gov.tt/travelexemption</a></div>'
-    
+
     + '<div id="ticker"><div id="ticker-wrapper"><ul id="ticker-wrapper-inner"></ul></div></div>'
-    
+
     + '<div id="disclaimer_container"><h4 id="authorsNote" class="sidebarh4">Author&#39s Note:</h4><i>"This map is my personal project in service to the fellow nationals who are outside of the country - it is no way affiliated with or supported by any University/Government/Organization or otherwise.<br>I ask for your understanding and that you not abuse this link or the systems associated with it."<br>~Brandon Serrao.</i><br><a href="mailto:ttlockoutmap@gmail.com">ttlockoutmap@gmail.com</a></div>',
-    
+
     position: 'top',
 };
-
-
-
-function openGeoSearch() {
-//    document.getElementById('registrationSteps').innerHTML = '<li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li>';
-//    //element.onclick = 'onGeocoderSelect(this);';
-//    sidebar.close();
-//    geocoderControl.addTo(myMap)
-//        .show()
-//        .focus()
-//    //element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
-//    alert("Use the searchbar to find your nearest city, then follow the button to the submission form.")
-    
-    //adding code to use a leaflet control instead
-    mycontrol = L.control.myControl(myControlOptions).addTo(myMap);
-    document.getElementById('myControl').innerHTML = '<ol><li id="step1" class="steps">Use the searchbar to find your nearest city,</li><li id="step2" class="steps">...</li></ol>';
-    sidebar.close();
-    geocoderControl.addTo(myMap)
-        .focus()
-//    element.outerHTML += '<button type="button" id="formButton" disabled="true">Open Submission Form</button>';
-    alert("Use the searchbar to find your nearest city, then follow the button to the submission form.")
-}
 
 
 var githubButton = {
@@ -141,4 +119,3 @@ var formTabContent = {
     //title:'Stories',
     pane:'placeholder to be replaced'
 };
-
