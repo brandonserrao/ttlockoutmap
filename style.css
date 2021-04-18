@@ -59,3 +59,55 @@ html, body{
 #myControl {
     background-color: lightgrey;
 }
+
+#dayCounterControl{
+  background-color: rgba(217, 217, 217, 0.85);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.dayCounter-content {
+  /* background-color: lightgrey; */
+
+  text-align: center;
+  color: red;
+  font-weight: bolder;
+}
+
+#dayCounter-count {
+  /* font-weight:700; */
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.popupInfoDiv {
+
+}
+
+.popupName {
+  display: block;
+}
+
+.popupStatus {
+  /* display: block; */
+}
+
+.popupTime {
+  text-align: right;
+  float: right;
+}
+
+.popupStory {
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+}
+/*
+.leaflet-popup-content-wrapper {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+.popupStory {
+  width: 90%;
+} */

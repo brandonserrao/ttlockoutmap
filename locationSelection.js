@@ -25,6 +25,7 @@ L.Control.MyControl = L.Control.extend({
 onAdd: function(map) {
     var div = L.DomUtil.create('div');
     div.id = 'myControl';
+    div.class = 'myControl-container';
     div.innerHTML='<p>Placeholder content for myControl.</p>';
     return div;
 },

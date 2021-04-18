@@ -1,14 +1,45 @@
+// obsoleted
+////attaches information to the individual points
+// function onEachFeature (feature, layer) {
+//   let outputString = '';
+//   //            outputString += '<b>' + feature.properties.status + '</b>';
+//   if (feature.properties.story == undefined) {
+//       feature.properties.story = storyPlaceholder;
+//   }
+//   outputString += '<p class="popupTime">' + feature.properties.time + '</p>';
+//   outputString += '<p class="popupName">' + feature.properties.name + '</p>';
+//   outputString += '<p class="popupStatus">' + feature.properties.status + '</p>';
+//   outputString += '<p class="popupStory">' + feature.properties.story + '</p>';
+//   //console.log(feature);
+//   layer.bindPopup(outputString,
+//                  storyPopupOptions, //
+//                  );
+// }
+
 //attaches information to the individual points
 function onEachFeature (feature, layer) {
-  let outputString = '';
-  //            outputString += '<b>' + feature.properties.status + '</b>';
   if (feature.properties.story == undefined) {
       feature.properties.story = storyPlaceholder;
   }
-  outputString += '<p class="popupTime">' + feature.properties.time + '</p>';
-  outputString += '<p class="popupName">' + feature.properties.name + '</p>';
-  outputString += '<p class="popupStatus">' + feature.properties.status + '</p>';
-  outputString += '<p class="popupStory">' + feature.properties.story + '</p>';
+
+  //reformat date values and calculate time passed since submission
+  const time = feature.properties.time;
+  t = time.split('/').reverse();
+  const currentDate = new Date();
+  const dateString = `${t[0]}-${t[2]}-${t[1]}`;
+  const submitDate = new Date(dateString);
+  const dayLength = 24*60*60*1000;
+  const daysPassed = Math.round(Math.abs((submitDate - currentDate) / dayLength));
+
+  let outputString = `<div class="popupHeader">
+  <span class="popupInfoDiv">
+  <span class="popupName">${feature.properties.name}</span>
+  <span class="popupStatus">${feature.properties.status}</span>
+  </span>
+  <span class="popupTime">${daysPassed} days ago</div>
+  </span>
+  <div class="popupStory">${feature.properties.story}</div>`;
+
   //console.log(feature);
   layer.bindPopup(outputString,
                  storyPopupOptions, //

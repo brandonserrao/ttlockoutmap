@@ -57,6 +57,10 @@ var myControlOptions = {
     position: 'topleft' //to make it more apparent by putting it next to the searchbar
 }
 
+var dayCounterOptions = {
+  position: 'bottomright'
+}
+
 var pulseIconOptions = {
             iconSize:[20,20],
             color:'blue',
