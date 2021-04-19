@@ -6,9 +6,6 @@
 
         <title>TT Lockout Map</title>
 
-        <!-- Stylesheet -->
-        <link rel="stylesheet" href="style.css"/>
-
         <!-- Leaflet -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
               integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -49,6 +46,11 @@
         <script type="text/javascript" src='js/constants.js'></script>
         <script type="text/javascript" src='js/options.js'></script>
 
+
+        <!--My Stylesheet -->
+        <link rel="stylesheet" href="style.css"/>
+
+
     </head>
 
     <body>
@@ -81,7 +83,7 @@
 
             //Stamen_TonerBackground.addTo(myMap);
             //OpenStreetMap_Mapnik.addTo(myMap);
-            Stamen_TonerLite.addTo(myMap);
+            Stamen_TonerLite.addTo(myMap).setOpacity(0.5);
 
             //END LEAFLET MAP CODE//
             </script>

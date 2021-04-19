@@ -6,7 +6,7 @@ const googleApiKey = 'AIzaSyDH7_RHe79ajPYJH5hgg-9i97ER-NrpNks';
 
 //link to google forms and entry codes for pre-filling; add '&entry.CODESTRING=DESIREDVALUE' at end of BaseURL to prefill desired entries
 const googleFormBaseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeIZzZ4m6gZqgVPszbrReHtE6g4n0k7gnTGQxKjmx198m0GAA/viewform?usp=pp_url';
-const formEntryCodes = { //to be used for 
+const formEntryCodes = { //to be used for
     city : '951397439',
     coords : '1691643040',
     name: '1075366382',
@@ -24,5 +24,5 @@ const tickerContainerId = 'ticker-wrapper-inner'
 const selectorOn = false; //testing draggable location selector
 
 
-
-const storyPlaceholder = 'No Story Submitted';
+const storyPlaceholder = '';
+// const storyPlaceholder = 'No Story Submitted';

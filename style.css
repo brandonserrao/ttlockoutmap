@@ -56,6 +56,14 @@ html, body{
     margin-bottom: 0.5em;
 }
 
+.leaflet-sidebar-header {
+  background-color: rgba(0, 85, 170, 1);
+}
+
+.leaflet-sidebar-tabs>ul>li.active {
+  background-color: rgba(0, 85, 170, 1);
+}
+
 #myControl {
     background-color: lightgrey;
 }
@@ -67,8 +75,6 @@ html, body{
 }
 
 .dayCounter-content {
-  /* background-color: lightgrey; */
-
   text-align: center;
   color: red;
   font-weight: bolder;
@@ -80,34 +86,55 @@ html, body{
   font-size: 30px;
 }
 
-.popupInfoDiv {
+/* .leaflet-popup-content-wrapper {
+} */
 
+.leaflet-popup-content {
+  /* background-color: orange; */
+  max-width: 70vw;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.popupHeader {
+  padding: 3px 5px 3px 5px;
+  border-radius: 10px;
+background-color: rgba(240, 240, 240, 1);
+max-height: 30%;
+position: sticky;
+top: 0;
+}
+
+.popupHeader-left {
+  min-width: 50%;
+  max-width: 100%
+}
+
+.popupHeader-right {
+  /* background-color: purple; */
+min-width:50%;
+text-align:right;
+float:right;
 }
 
 .popupName {
-  display: block;
+/* background-color: blue; */
 }
 
 .popupStatus {
-  /* display: block; */
+  /* background-color: green; */
+  position: sticky;
 }
 
 .popupTime {
-  text-align: right;
-  float: right;
+/* color: red; */
 }
 
 .popupStory {
+/* background-color: yellow; */
   margin-top: 10px;
-  margin-bottom: 5px;
-
+  margin-bottom: 15px;
+  height:
+  max-height: 50vh;
+  /* overflow-y: scroll; */
 }
-/*
-.leaflet-popup-content-wrapper {
-  max-width: 80vw;
-  max-height: 80vh;
-}
-
-.popupStory {
-  width: 90%;
-} */

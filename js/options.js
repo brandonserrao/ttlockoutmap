@@ -63,15 +63,22 @@ var dayCounterOptions = {
 
 var pulseIconOptions = {
             iconSize:[20,20],
-            color:'blue',
-            fillColor:'blue',
+            // color:'blue',
+            // fillColor:'blue', //0,85,170
             animate: true,
-            heartbeat: 2 //pulse frequency in seconds
+            heartbeat: 3, //pulse frequency in seconds
+            color:'rgba(0, 85, 170, 1)',//my blue //'rgba(234, 21, 21, 1)',//
+            fillColor:'rgba(0, 85, 170, 1)',//'rgba(234, 21, 21, 1)'
         };
 
 var pulseIconOptions2 = {
             iconSize:[8,8],
-            color:'red'
+            // color:'red', //234, 21, 21
+            // fillColor: 'rgba(234, 21, 21, 1)',
+            color: 'rgba(234, 21, 21, 1)',
+            fillColor: 'rgba(234, 21, 21, 1)',
+            animate: true,
+            heartbeat: 0.5,
         };
 
 var clusterMarkerOptions = {

@@ -31,14 +31,26 @@ function onEachFeature (feature, layer) {
   const dayLength = 24*60*60*1000;
   const daysPassed = Math.round(Math.abs((submitDate - currentDate) / dayLength));
 
+  // let outputString = `<div class="popupHeader">
+  // <span class="popupInfoDiv">
+  // <span class="popupName">${feature.properties.name}</span>
+  // <span class="popupStatus">${feature.properties.status}</span>
+  // </span>
+  // <span class="popupTime">${daysPassed} days ago</div>
+  // </span>
+  // <div class="popupStory">${feature.properties.story}</div>`;
+
   let outputString = `<div class="popupHeader">
-  <span class="popupInfoDiv">
-  <span class="popupName">${feature.properties.name}</span>
-  <span class="popupStatus">${feature.properties.status}</span>
-  </span>
-  <span class="popupTime">${daysPassed} days ago</div>
-  </span>
-  <div class="popupStory">${feature.properties.story}</div>`;
+                        <div class="popupHeader-right">
+                          <div class="popupTime">${daysPassed} days ago</div>
+                          </div>
+                          <div class="popupHeader-left">
+                            <div class="popupName">${feature.properties.name}</div>
+
+                            <div class="popupStatus">${feature.properties.status}</div>
+                          </div>
+                        </div>
+                        <div class="popupStory">${feature.properties.story}</div>`;
 
   //console.log(feature);
   layer.bindPopup(outputString,
